@@ -236,14 +236,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
     }
 
     public String generateEmailkey(String email){
-        String senderResponseEmailkey;
+   /*     String senderResponseEmailkey;
         String senderResponseEmailFirstPart;
         String senderResponseEmailLastPart;
         int index2 =email.lastIndexOf(".");
         senderResponseEmailLastPart= email.substring(index2).replace(".","&");
         senderResponseEmailFirstPart=email.substring(0,index2);;
         senderResponseEmailkey = senderResponseEmailFirstPart+senderResponseEmailLastPart;
-        return senderResponseEmailkey;
+        return senderResponseEmailkey;*/
+        return email.replace(".","&");
     }
 
     public NotificationCompat.Action generateDirectReplyAction(int notificationID){
