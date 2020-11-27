@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Cheers Beer!</string>
+    <string name="facebook_app_id">829251081142458</string>
+    <string name="fb_login_protocol_scheme">fb829251081142458</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="NOTIFICATION_ID_KEY_FRIEND_REQUEST">NOTIFICATION_ID_KEY_FRIEND_REQUEST</string>
+    <string name="NOTIFICATION_ID_KEY_TRINK_REQUEST">NOTIFICATION_ID_KEY_TRINK_REQUEST</string>
+    <string name="NOTIFICATION_ID_KEY_TRINK_REPLY">NOTIFICATION_ID_KEY_TRINK_REPLY</string>
+
+</resources>
