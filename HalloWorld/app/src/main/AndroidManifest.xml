@@ -12,10 +12,17 @@
         android:roundIcon="@drawable/bier"
         android:supportsRtl="true"
         android:theme="@style/Theme.HalloWorld">
+        <activity android:name=".Splash_Screen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <service
             android:name=".Service.DirectReplyService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <activity
             android:name=".Friends"
@@ -38,11 +45,7 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.HalloWorld.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".GoogleMaps"
@@ -82,6 +85,9 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/bier" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <service
             android:name=".Service.MyFirebaseMessagingService"
