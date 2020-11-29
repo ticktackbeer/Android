@@ -144,7 +144,7 @@ public class EmailLogin extends AppCompatActivity {
                                     showErrorMessage(ee.getMessage());
                                 }
                                 else {
-                                    // If sign in fails, display a message to the u ser.
+                                    // If sign in fails, display a message to the user.
                                     Log.w(ETag, "signInWithEmail:failure", task.getException());
                                     Exception ex = task.getException();
                                     showErrorMessage(ex.getMessage());
