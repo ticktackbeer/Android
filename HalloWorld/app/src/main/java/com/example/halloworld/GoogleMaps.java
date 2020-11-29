@@ -48,7 +48,7 @@ public class GoogleMaps extends DrawerMenu {
     }
 
     private void getCurrentlocation() {
-        // Is checked
+        //  Is checked
         @SuppressLint("MissingPermission") Task<Location> task = client.getLastLocation();
         task.addOnSuccessListener(new OnSuccessListener<Location>() {
             @Override
