@@ -242,7 +242,7 @@ public class EmailLogin extends AppCompatActivity {
 
         callbackmanager = CallbackManager.Factory.create();
 
-        // Set permissions
+        //   Set permissions
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile, email, user_birthday,user_friends"));
 
         LoginManager.getInstance().registerCallback(callbackmanager, new FacebookCallback<LoginResult>() {
