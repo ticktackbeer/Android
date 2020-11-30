@@ -34,8 +34,8 @@ public class Splash_Screen<SPLASH_SCREEN> extends AppCompatActivity {
         setContentView(R.layout.activity_splash__screen);
 
         //Animations
-       // topAnim = AnimationUtils.loadAnimation(this, R.anim.top_animation);
-        //bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
+        topAnim = AnimationUtils.loadAnimation(this, R.anim.top_animation);
+        bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
 
         //Hooks
         image = findViewById(R.id.imageView);
