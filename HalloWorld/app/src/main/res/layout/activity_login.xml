@@ -4,48 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     android:orientation="vertical"
-    android:background="@color/white"
-    tools:context=".Login"
     android:padding="10dp"
-    android:transitionName="Login">
+    android:transitionName="Login"
+    tools:context=".Login">
 
     <ImageView
         android:id="@+id/logo_image"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/splash_bild"/>
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/splash_bild" />
 
     <TextView
         android:id="@+id/logo_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/black_ops_one"
+        android:fontFamily="cursive"
         android:text="Salud Amigo, melde dich an um fortzufahren."
-        android:textSize="20sp"/>
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="50sp" />
 
     <Button
         android:id="@+id/loginBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=" Email Login"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:text=" Email Login" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/loginRegisterHere"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register here"
         android:layout_gravity="center_horizontal"
-        android:textStyle="bold"/>
+        android:text="Register here"
+        android:textStyle="bold" />
 
     <com.google.android.gms.common.SignInButton
+        android:id="@+id/btnGlogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnGlogin"
         android:layout_centerInParent="true"
-        android:layout_margin="16dp"/>
+        android:layout_margin="16dp" />
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/btnFLOGIN_button"
