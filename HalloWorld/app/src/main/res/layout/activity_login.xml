@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/background_wood"
     android:orientation="vertical"
     android:padding="10dp"
     android:transitionName="Login"
@@ -12,9 +12,10 @@
 
     <ImageView
         android:id="@+id/logo_image"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:src="@drawable/splash_bild" />
+        android:layout_width="wrap_content"
+        android:layout_height="235dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ansto_en" />
 
     <TextView
         android:id="@+id/logo_name"
@@ -23,7 +24,7 @@
         android:fontFamily="cursive"
         android:text="Salud Amigo, melde dich an um fortzufahren."
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="50sp" />
 
     <Button
