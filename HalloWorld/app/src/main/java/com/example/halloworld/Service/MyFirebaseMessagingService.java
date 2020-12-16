@@ -116,7 +116,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
         notificationBuilder = new NotificationCompat.Builder(this,"test")
                 .setContentTitle(title)
                 .setContentText(body)
-                .setSmallIcon(R.drawable.bier)
+                .setSmallIcon(R.drawable.anstossen)
                 .setAutoCancel(true)
                 .setContentIntent(mainPending)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(body))
@@ -144,7 +144,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
         notificationBuilder = new NotificationCompat.Builder(this,"test")
                 .setContentTitle(title)
                 .setContentText(body)
-                .setSmallIcon(R.drawable.bier)
+                .setSmallIcon(R.drawable.anstossen)
                 .setAutoCancel(true)
                 .setContentIntent(mainPending)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(body))
@@ -179,7 +179,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
         notificationBuilder = new NotificationCompat.Builder(this,"test")
                 .setContentTitle(title)
                 .setContentText(body)
-                .setSmallIcon(R.drawable.bier)
+                .setSmallIcon(R.drawable.anstossen)
                 .setAutoCancel(true)
                 .setContentIntent(mainPending)
                 .addAction(R.drawable.ic_home,"Bestätigen",actionIntent)
@@ -209,7 +209,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
         notificationBuilder = new NotificationCompat.Builder(this,"test")
                 .setContentTitle(title)
                 .setContentText(body)
-                .setSmallIcon(R.drawable.bier)
+                .setSmallIcon(R.drawable.anstossen)
                 .setAutoCancel(true)
                 .setContentIntent(mainPending)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(body))
@@ -259,14 +259,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
 
             RemoteInput remoteInput = new RemoteInput.Builder(getString(R.string.NOTIFICATION_ID_KEY_TRINK_REPLY))
                     .setLabel("Nachricht eingeben").build();
-            NotificationCompat.Action directReplyAction = new NotificationCompat.Action.Builder(R.drawable.bier,"Antworten",directReplyPendingIntent)
+            NotificationCompat.Action directReplyAction = new NotificationCompat.Action.Builder(R.drawable.anstossen,"Antworten",directReplyPendingIntent)
                     .addRemoteInput(remoteInput).build();
             return directReplyAction;
         }else{
             Intent mainInten = new Intent(this, MainActivity.class);
             PendingIntent mainPending = PendingIntent.getActivity(this,5,mainInten,PendingIntent.FLAG_UPDATE_CURRENT);
 
-            NotificationCompat.Action directReplyAction = new NotificationCompat.Action.Builder(R.drawable.bier,"Antworten",mainPending)
+            NotificationCompat.Action directReplyAction = new NotificationCompat.Action.Builder(R.drawable.anstossen,"Antworten",mainPending)
             .build();
             return directReplyAction;
 

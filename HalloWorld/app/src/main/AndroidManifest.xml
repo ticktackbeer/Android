@@ -7,9 +7,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/bier"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/bier"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.HalloWorld">
         <activity android:name=".Splash_Screen">
@@ -84,7 +84,7 @@
             android:value="AIzaSyA64tygSyQjIO19iDlxqj6lalJCRQLLJ2Q" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/bier" />
+            android:resource="@mipmap/ic_launcher" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="235dp"
         android:layout_gravity="center"
-        android:src="@drawable/ansto_en" />
+        android:src="@drawable/anstossen" />
 
     <TextView
         android:id="@+id/logo_name"
