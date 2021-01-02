@@ -9,7 +9,7 @@
 
 
     <TextView
-        android:id="@+id/text_willkommen"
+        android:id="@+id/topic_Willkommen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -24,41 +24,41 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/image_willkommen"
+        android:id="@+id/image_Willkommen"
         android:layout_width="wrap_content"
         android:layout_height="250dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_willkommen"
+        app:layout_constraintTop_toBottomOf="@+id/topic_Willkommen"
         app:srcCompat="@drawable/anstossen" />
 
     <TextView
-        android:id="@+id/text_info"
+        android:id="@+id/text_Info"
         android:layout_width="393dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:text="Auf der nächsten Seite werden wir dich nach deinem Namen fragen. Wir brauchen ihn, um dich mit deinen Amiogs verbinden zu können."
         android:textAlignment="center"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/text_kontakt"
+        app:layout_constraintBottom_toTopOf="@+id/text_Kontakt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/text_kontakt"
+        android:id="@+id/text_Kontakt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"
         android:text="Hast du Probleme beim Einloggen? Salud Amigos kontaktieren"
         android:textAlignment="center"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/button_fortsetzen"
+        app:layout_constraintBottom_toTopOf="@+id/button_Fortsetzen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button_fortsetzen"
+        android:id="@+id/button_Fortsetzen"
         android:layout_width="400sp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
