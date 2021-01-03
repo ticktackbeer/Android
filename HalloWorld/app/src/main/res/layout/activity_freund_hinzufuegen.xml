@@ -8,12 +8,12 @@
     tools:context=".DesignV1.FreundHinzufuegen">
 
     <TextView
-        android:id="@+id/topic_Freunde"
+        android:id="@+id/topic_Freundehinzufügen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:fontFamily="cursive"
-        android:text="Freunde"
+        android:text="Freunde hinzufügen"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="35sp"
@@ -28,7 +28,7 @@
         android:layout_height="250dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topic_Freunde"
+        app:layout_constraintTop_toBottomOf="@+id/topic_Freundehinzufügen"
         app:srcCompat="@drawable/anstossen" />
 
     <TextView
