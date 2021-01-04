@@ -21,17 +21,18 @@
         <activity android:name=".DesignV1.FreundesListe" />
         <activity android:name=".DesignV1.FreundHinzufuegen" />
         <activity android:name=".DesignV1.HomeScreen" />
-        <activity android:name=".DesignV1.SplashScreen" />
-        <activity android:name=".DesignV1.Registrierung" />
-        <activity android:name=".DesignV1.Anmeldeauswahl" />
-        <activity android:name=".DesignV1.Wilkommen" />
-        <activity android:name=".Splash_Screen">
+        <activity android:name=".DesignV1.SplashScreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".DesignV1.Registrierung" />
+        <activity android:name=".DesignV1.Anmeldeauswahl" />
+        <activity android:name=".DesignV1.Wilkommen" />
+        <activity android:name=".Splash_Screen"/>
+
+
 
         <service
             android:name=".Service.DirectReplyService"

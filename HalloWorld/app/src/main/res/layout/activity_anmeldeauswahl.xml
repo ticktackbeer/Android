@@ -53,24 +53,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <com.facebook.login.widget.LoginButton
         android:id="@+id/button_Facebook"
         android:layout_width="400sp"
         android:layout_height="wrap_content"
-        android:text="Facebook"
         android:backgroundTint="@color/com_facebook_blue"
         app:layout_constraintBottom_toTopOf="@+id/button_Email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <com.google.android.gms.common.SignInButton
         android:id="@+id/button_Google"
         android:layout_width="400sp"
         android:layout_height="wrap_content"
-        android:text="Google"
         android:backgroundTint="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/button_Facebook"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--    android:text="Google" android:text="Facebook"-->
