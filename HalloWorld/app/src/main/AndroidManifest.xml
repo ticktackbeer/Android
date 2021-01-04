@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/Theme.HalloWorld">
+        android:theme="@style/Theme.HalloWorld.NoActionBar">
         <activity android:name=".DesignV1.EmailAnmeldung"></activity>
         <activity android:name=".DesignV1.Ueber" />
         <activity android:name=".DesignV1.Profil" />

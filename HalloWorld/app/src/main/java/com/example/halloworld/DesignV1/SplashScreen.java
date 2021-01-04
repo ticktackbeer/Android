@@ -15,6 +15,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.halloworld.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import static android.os.Build.VERSION.SDK_INT;
 
 public class SplashScreen extends AppCompatActivity {
@@ -31,6 +34,8 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        //TODO: Wenn User Existiert dann schreib in UserLocalStore mit allen daten von der DB
+        FirebaseUser firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
         //Animations
         topAnim = AnimationUtils.loadAnimation(this, R.anim.top_animation);
         bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
@@ -49,7 +54,13 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashScreen.this, Wilkommen.class);
+                Intent intent;
+                if(firebaseUser==null){
+                    intent= new Intent(SplashScreen.this, Wilkommen.class);
+                }else{
+                    intent= new Intent(SplashScreen.this, HomeScreen.class);
+                }
+
 
                 Pair[] pairs = new Pair[2];
                 pairs[0] = new Pair<View, String>(image, "logo_image");
