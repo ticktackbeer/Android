@@ -8,7 +8,7 @@ import android.os.Bundle;
 import com.example.halloworld.DrawerMenu;
 import com.example.halloworld.R;
 
-public class HomeScreen extends DrawerMenu {
+public class HomeScreen extends NavigationMenu {
     Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
