@@ -42,45 +42,57 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    //  E-Mail
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_Email"
         android:layout_width="350sp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
-        android:backgroundTint="@color/design_default_color_error"
-        app:cornerRadius="50dp"
+        android:backgroundTint="@android:color/holo_orange_dark"
         android:text="Weiter mit Email"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/text_AGB"
+        app:cornerRadius="50dp"
+        android:drawableLeft="@drawable/ic_baseline_email_24"
+        android:paddingLeft="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_AGB"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_Facebook"
+        app:layout_constraintVertical_bias="0.100000024" />
+
+    //  Facebook
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_Facebook"
         android:layout_width="350sp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/com_facebook_blue"
-        app:cornerRadius="50dp"
         android:text="Weiter mit Facebook"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/button_Email"
+        app:cornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_AGB"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_Anmeldung" />
+
+    //  Google
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_Google"
         android:layout_width="350sp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
-        app:cornerRadius="50dp"
         android:text="Weiter mit Google"
         android:textAllCaps="false"
         android:textColor="@color/black"
+        app:cornerRadius="50dp"
         app:layout_constraintBottom_toTopOf="@+id/button_Facebook"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_Anmeldung"
+        app:layout_constraintVertical_bias="0.9" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
