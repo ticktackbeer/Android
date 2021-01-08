@@ -201,6 +201,7 @@ public class Anmeldeauswahl extends AppCompatActivity {
         btnFlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                userLocalStore.storeLogintype(LoginType.facebook);
                 LoginManager.getInstance().logInWithReadPermissions(Anmeldeauswahl.this, Arrays.asList("email", "public_profile"));
                 LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
 
@@ -233,6 +234,7 @@ public class Anmeldeauswahl extends AppCompatActivity {
                         handleFacebookToken(loginResult.getAccessToken());
 
                     }
+
                     @Override
                     public void onCancel() {
                         userLocalStore.storeLogintype(LoginType.facebook);
@@ -247,6 +249,7 @@ public class Anmeldeauswahl extends AppCompatActivity {
                 });
             }
         });
+
 //        btnFlogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
 //
 //            @Override
@@ -290,15 +293,7 @@ public class Anmeldeauswahl extends AppCompatActivity {
 //                Log.d(FTag, "onError");
 //            }
 //        });
-
-
-        btnFlogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                userLocalStore.storeLogintype(LoginType.facebook);
-            }
-        });
-
+        
     }
 
     private void handleFacebookToken(AccessToken accessToken) {
