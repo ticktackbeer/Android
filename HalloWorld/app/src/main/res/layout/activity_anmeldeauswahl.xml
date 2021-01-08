@@ -59,6 +59,8 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/com_facebook_blue"
         app:cornerRadius="50dp"
+        android:text="Anmelden mit Facebook"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/button_Email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
