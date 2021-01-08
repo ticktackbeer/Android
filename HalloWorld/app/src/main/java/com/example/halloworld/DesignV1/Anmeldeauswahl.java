@@ -58,6 +58,7 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 
 public class Anmeldeauswahl extends AppCompatActivity {
@@ -73,7 +74,8 @@ public class Anmeldeauswahl extends AppCompatActivity {
 
     //facebook
     CallbackManager callbackManager;
-    LoginButton btnFlogin;
+    Button btnFlogin;
+//    LoginButton btnFlogin;
     static final String FTag = "FacebookAuthentication";
     String facebookrequestedEmail;
     String infoText;
@@ -91,7 +93,7 @@ public class Anmeldeauswahl extends AppCompatActivity {
         btnElogin = findViewById(R.id.button_Email);
         btnGlogin = findViewById(R.id.button_Google);
         btnFlogin = findViewById(R.id.button_Facebook);
-        btnFlogin.setReadPermissions("email", "public_profile");
+        //btnFlogin.setReadPermissions("email", "public_profile");
         quickLogout();
         Glogin();
         facebookLogin();
@@ -196,49 +198,98 @@ public class Anmeldeauswahl extends AppCompatActivity {
     private void facebookLogin() {
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
-        btnFlogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-
+        btnFlogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess(LoginResult loginResult) {
-
-                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+            public void onClick(View v) {
+                LoginManager.getInstance().logInWithReadPermissions(Anmeldeauswahl.this, Arrays.asList("email", "public_profile"));
+                LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
 
                     @Override
-                    public void onCompleted(JSONObject object, GraphResponse response) {
-                        // Get facebook data from login
-                        Bundle bFacebookData = getFacebookData(object);
-                        if (object.has("email")) {
-                            try {
-                                String email = object.getString("email");
+                    public void onSuccess(LoginResult loginResult) {
 
-                                facebookrequestedEmail = email;
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                        GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+
+                            @Override
+                            public void onCompleted(JSONObject object, GraphResponse response) {
+                                // Get facebook data from login
+                                Bundle bFacebookData = getFacebookData(object);
+                                if (object.has("email")) {
+                                    try {
+                                        String email = object.getString("email");
+
+                                        facebookrequestedEmail = email;
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
                             }
-                        }
+                        });
+                        Bundle parameters = new Bundle();
+                        parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location"); // Parámetros que pedimos a facebook
+                        request.setParameters(parameters);
+                        request.executeAsync();
+
+                        Log.d(FTag, "onSuccess" + loginResult);
+                        handleFacebookToken(loginResult.getAccessToken());
+
+                    }
+                    @Override
+                    public void onCancel() {
+                        userLocalStore.storeLogintype(LoginType.facebook);
+                        Log.d(FTag, "onCancel");
+                    }
+
+                    @Override
+                    public void onError(FacebookException error) {
+                        userLocalStore.storeLogintype(LoginType.facebook);
+                        Log.d(FTag, "onError");
                     }
                 });
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location"); // Parámetros que pedimos a facebook
-                request.setParameters(parameters);
-                request.executeAsync();
-
-                Log.d(FTag, "onSuccess" + loginResult);
-                handleFacebookToken(loginResult.getAccessToken());
-
-            }
-            @Override
-            public void onCancel() {
-                userLocalStore.storeLogintype(LoginType.facebook);
-                Log.d(FTag, "onCancel");
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                userLocalStore.storeLogintype(LoginType.facebook);
-                Log.d(FTag, "onError");
             }
         });
+//        btnFlogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+//
+//            @Override
+//            public void onSuccess(LoginResult loginResult) {
+//
+//                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+//
+//                    @Override
+//                    public void onCompleted(JSONObject object, GraphResponse response) {
+//                        // Get facebook data from login
+//                        Bundle bFacebookData = getFacebookData(object);
+//                        if (object.has("email")) {
+//                            try {
+//                                String email = object.getString("email");
+//
+//                                facebookrequestedEmail = email;
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    }
+//                });
+//                Bundle parameters = new Bundle();
+//                parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location"); // Parámetros que pedimos a facebook
+//                request.setParameters(parameters);
+//                request.executeAsync();
+//
+//                Log.d(FTag, "onSuccess" + loginResult);
+//                handleFacebookToken(loginResult.getAccessToken());
+//
+//            }
+//            @Override
+//            public void onCancel() {
+//                userLocalStore.storeLogintype(LoginType.facebook);
+//                Log.d(FTag, "onCancel");
+//            }
+//
+//            @Override
+//            public void onError(FacebookException error) {
+//                userLocalStore.storeLogintype(LoginType.facebook);
+//                Log.d(FTag, "onError");
+//            }
+//        });
 
 
         btnFlogin.setOnClickListener(new View.OnClickListener() {
