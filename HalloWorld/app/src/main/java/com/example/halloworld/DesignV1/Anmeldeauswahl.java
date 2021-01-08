@@ -267,7 +267,7 @@ public class Anmeldeauswahl extends AppCompatActivity {
                             User person = new User(user.getDisplayName(), user.getEmail(), user.getEmail(), -1, user.getUid(), LoginType.facebook.toString(),null,userTocken);
 
                             userLocalStore.storeUserData(person );
-                            FirebaseDatabase.getInstance().getReference("User").child("User").child(generateEmailkey(user.getEmail())).setValue(person);
+                            FirebaseDatabase.getInstance().getReference("User").child(generateEmailkey(user.getEmail())).setValue(person);
 
                             Intent intent = new Intent(Anmeldeauswahl.this, HomeScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
