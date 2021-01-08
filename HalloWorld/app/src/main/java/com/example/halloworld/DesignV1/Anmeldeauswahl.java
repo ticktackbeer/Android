@@ -69,7 +69,7 @@ public class Anmeldeauswahl extends AppCompatActivity {
 
 
     //google
-    SignInButton btnGlogin;
+    Button btnGlogin;
     GoogleSignInClient googleSignInClient;
 
     //facebook
