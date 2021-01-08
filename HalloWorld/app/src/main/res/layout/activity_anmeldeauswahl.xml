@@ -42,13 +42,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button_Email"
-        android:layout_width="400sp"
+        android:layout_width="350sp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="80dp"
         android:backgroundTint="@color/design_default_color_error"
-        android:text="Email"
+        app:cornerRadius="50dp"
+        android:text="Weiter mit Email"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/text_AGB"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -59,17 +62,22 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/com_facebook_blue"
         app:cornerRadius="50dp"
-        android:text="Anmelden mit Facebook"
+        android:text="Weiter mit Facebook"
+        android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/button_Email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.gms.common.SignInButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button_Google"
-        android:layout_width="400sp"
+        android:layout_width="350sp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
+        app:cornerRadius="50dp"
+        android:text="Weiter mit Google"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/button_Facebook"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
