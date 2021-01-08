@@ -53,11 +53,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <com.facebook.login.widget.LoginButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button_Facebook"
-        android:layout_width="400sp"
+        android:layout_width="350sp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/com_facebook_blue"
+        app:cornerRadius="50dp"
         app:layout_constraintBottom_toTopOf="@+id/button_Email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
