@@ -15,7 +15,6 @@ public class HomeScreen extends NavigationMenu {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         toolbar= findViewById(R.id.toolbar);
-        toolbar.setTitle("Home");
         super.setDrawerLayout(this,toolbar,R.id.nav_home);
     }
 }
