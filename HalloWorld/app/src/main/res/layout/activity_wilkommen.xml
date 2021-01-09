@@ -35,39 +35,42 @@
 
     <TextView
         android:id="@+id/text_Info"
-        android:layout_width="393dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
         android:text="Auf der nächsten Seite werden wir dich nach deinem Namen fragen. Wir brauchen ihn, um dich mit deinen Amiogs verbinden zu können."
         android:textAlignment="center"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/text_Kontakt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/button_Fortsetzen"
+        app:layout_constraintEnd_toEndOf="@+id/button_Fortsetzen"
+        app:layout_constraintStart_toStartOf="@+id/button_Fortsetzen"
+        app:layout_constraintTop_toBottomOf="@+id/image_Willkommen" />
 
     <TextView
-        android:id="@+id/text_Kontakt"
-        android:layout_width="wrap_content"
+        android:id="@+id/text_AGB"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
-        android:text="Hast du Probleme beim Einloggen? Salud Amigos kontaktieren"
+        android:text="Indem du auf Fortsetzen drückst, stimmst du unseren Datenschutz und Nutzungsbedingungen zu"
         android:textAlignment="center"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/button_Fortsetzen"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/button_Fortsetzen"
+        app:layout_constraintStart_toStartOf="@+id/button_Fortsetzen"
+        app:layout_constraintTop_toBottomOf="@+id/button_Fortsetzen" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button_Fortsetzen"
-        android:layout_width="400sp"
+        android:layout_width="350sp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:baselineAligned="false"
+        android:backgroundTint="@android:color/holo_orange_dark"
         android:text="Fortsetzen"
-        android:backgroundTint="@color/white"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:cornerRadius="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

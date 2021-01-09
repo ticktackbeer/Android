@@ -61,14 +61,18 @@
         app:layout_constraintTop_toTopOf="@+id/toolbar"
         app:srcCompat="@drawable/bier" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button_Getränkleeren"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/holo_orange_dark"
         android:text="Getränk leeren"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:cornerRadius="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/topic_Homescreen"
+        app:layout_constraintStart_toStartOf="@+id/topic_Homescreen"
         app:layout_constraintTop_toBottomOf="@+id/imagebtn_Trinken"
         app:layout_constraintVertical_bias="0.20" />
 

@@ -31,31 +31,50 @@
         app:layout_constraintTop_toBottomOf="@+id/topic_Emailanmeldung"
         app:srcCompat="@drawable/anstossen" />
 
-    <EditText
-        android:id="@+id/RegistrationEmail"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:textColorHint="@color/white"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/image_Emailanmeldung"
-        app:layout_constraintVertical_bias="0.9" />
+    //  Email Eingabe
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
+        android:id="@+id/textInputLayoutEmail"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:textColorHint="@color/white"
+        app:boxStrokeColor="@color/white"
         app:hintEnabled="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayoutPasswort"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayoutPasswort"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayoutPasswort">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/AnmeldungEmail"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textPassword"
+            android:textSize="20dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    //  Passwort Eingabe
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutPasswort"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:textColorHint="@color/white"
+        app:boxStrokeColor="@color/white"
+        app:hintEnabled="true"
+        app:layout_constraintBottom_toTopOf="@+id/button_Bestätigen"
         app:layout_constraintEnd_toEndOf="@+id/image_Emailanmeldung"
         app:layout_constraintStart_toStartOf="@+id/image_Emailanmeldung"
-        app:layout_constraintTop_toBottomOf="@+id/image_Emailanmeldung"
-        app:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/RegistrationPassword"
@@ -74,15 +93,36 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/holo_orange_dark"
         android:text="Bestätigen"
-        app:cornerRadius="50dp"
         android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:cornerRadius="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
-        app:layout_constraintVertical_bias="0.100000024" />
+        app:layout_constraintEnd_toEndOf="@+id/image_Emailanmeldung"
+        app:layout_constraintStart_toStartOf="@+id/image_Emailanmeldung"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.75" />
 
+    <TextView
+        android:id="@+id/textPasswortvergessen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Passwort vergessen?"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="@+id/button_Bestätigen"
+        app:layout_constraintTop_toBottomOf="@+id/button_Bestätigen" />
 
+    <TextView
+        android:id="@+id/textRegistrieren"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Du hast noch kein Konto? Dann registrier dich hier!"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="@+id/button_Bestätigen"
+        app:layout_constraintTop_toBottomOf="@+id/textPasswortvergessen" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

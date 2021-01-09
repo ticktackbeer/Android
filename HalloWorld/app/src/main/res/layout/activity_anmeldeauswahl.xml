@@ -31,16 +31,6 @@
         app:layout_constraintTop_toBottomOf="@+id/topic_Anmeldung"
         app:srcCompat="@drawable/anstossen" />
 
-    <TextView
-        android:id="@+id/text_AGB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:text="AGB´s"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     //  E-Mail
 
@@ -50,17 +40,17 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/holo_orange_dark"
         android:drawableLeft="@drawable/ic_baseline_email_24"
-        android:paddingLeft="50dp"
-        android:textAlignment="center"
+        android:paddingLeft="90dp"
         android:text="Weiter mit Email"
+        android:textAlignment="textStart"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:cornerRadius="50dp"
-        app:layout_constraintBottom_toBottomOf="@+id/text_AGB"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_Facebook"
-        app:layout_constraintVertical_bias="0.100000024" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.75" />
 
     //  Facebook
 
@@ -68,17 +58,20 @@
         android:id="@+id/button_Facebook"
         android:layout_width="350sp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
         android:backgroundTint="@color/com_facebook_blue"
-        android:text="Weiter mit Facebook"
         android:drawableLeft="@drawable/ic_facebook_logo_2019"
-        android:paddingLeft="50dp"
+        android:paddingLeft="90dp"
+        android:text="Weiter mit Facebook"
+        android:textAlignment="textStart"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:cornerRadius="50dp"
-        app:layout_constraintBottom_toBottomOf="@+id/text_AGB"
+        app:layout_constraintBottom_toTopOf="@+id/button_Email"
         app:layout_constraintEnd_toEndOf="@+id/image_Anmeldung"
         app:layout_constraintStart_toStartOf="@+id/image_Anmeldung"
-        app:layout_constraintTop_toBottomOf="@+id/image_Anmeldung" />
+        app:layout_constraintTop_toBottomOf="@+id/image_Anmeldung"
+        app:layout_constraintVertical_bias="1.0" />
 
     //  Google
 
@@ -86,18 +79,32 @@
         android:id="@+id/button_Google"
         android:layout_width="350sp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
         android:backgroundTint="@color/white"
-        android:text="Weiter mit Google"
-        android:textAllCaps="false"
         android:drawableLeft="@drawable/ic_google"
-        android:paddingLeft="50dp"
+        android:paddingLeft="90dp"
+        android:text="Weiter mit Google"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
         android:textColor="@color/black"
         app:cornerRadius="50dp"
         app:layout_constraintBottom_toTopOf="@+id/button_Facebook"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image_Anmeldung"
-        app:layout_constraintVertical_bias="0.9" />
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/text_Kontakt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Hast du Probleme beim Einloggen? Salud Amigos kontaktieren"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/button_Email"
+        app:layout_constraintStart_toStartOf="@+id/button_Email"
+        app:layout_constraintTop_toBottomOf="@+id/button_Email" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
