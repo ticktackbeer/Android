@@ -51,6 +51,7 @@
         android:backgroundTint="@android:color/holo_orange_dark"
         android:drawableLeft="@drawable/ic_baseline_email_24"
         android:paddingLeft="50dp"
+        android:textAlignment="center"
         android:text="Weiter mit Email"
         android:textAllCaps="false"
         android:textColor="@color/white"

@@ -4,6 +4,85 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_wood"
     tools:context=".DesignV1.EmailAnmeldung">
+
+    <TextView
+        android:id="@+id/topic_Emailanmeldung"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="cursive"
+        android:text="Email anmeldung"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="35sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_Emailanmeldung"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topic_Emailanmeldung"
+        app:srcCompat="@drawable/anstossen" />
+
+    <EditText
+        android:id="@+id/RegistrationEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Email"
+        android:backgroundTint="@color/white"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
+        app:layout_constraintEnd_toEndOf="@+id/image_Emailanmeldung"
+        app:layout_constraintStart_toStartOf="@+id/image_Emailanmeldung" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hintEnabled="false"
+        app:layout_constraintBottom_toBottomOf="@+id/RegistrationPassword"
+        app:layout_constraintEnd_toEndOf="@+id/image_Emailanmeldung"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="@+id/image_Emailanmeldung"
+        app:layout_constraintTop_toTopOf="@+id/RegistrationPassword"
+        app:passwordToggleEnabled="true">
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_Bestätigen"
+        android:layout_width="400sp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/white"
+        android:baselineAligned="false"
+        android:text="Bestätigen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/RegistrationPassword"
+        app:layout_constraintStart_toStartOf="@+id/RegistrationPassword"
+        app:layout_constraintTop_toBottomOf="@+id/RegistrationPassword" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/RegistrationPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/image_Emailanmeldung" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
