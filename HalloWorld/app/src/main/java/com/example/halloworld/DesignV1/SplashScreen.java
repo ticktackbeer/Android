@@ -30,6 +30,7 @@ public class SplashScreen extends AppCompatActivity {
     ImageView image;
     TextView logo, slogan;
     private static int SPLASH_SCREEN = 3000;
+
     UserLocalStore userLocalStore;
 
     @Override
@@ -53,26 +54,27 @@ public class SplashScreen extends AppCompatActivity {
         logo.setAnimation(bottomAnim);
         slogan.setAnimation(bottomAnim);
 
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 Intent intent;
+               // intent= new Intent(SplashScreen.this, Wilkommen.class);
+                //startActivity(intent);
                 if(!userLocalStore.isUserLoggedIn()){
                     intent= new Intent(SplashScreen.this, Wilkommen.class);
                 }else{
                     intent= new Intent(SplashScreen.this, HomeScreen.class);
                 }
 
-
-              Pair[] pairs = new Pair[2];
+                Pair[] pairs = new Pair[2];
                 pairs[0] = new Pair<View, String>(image, "logo_image");
                 pairs[1] = new Pair<View, String>(logo, "logo_text");
                 if (SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SplashScreen.this,pairs);
-//                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SplashScreen.this, pairs);
-                    startActivity(intent, options.toBundle());
+                    startActivity(intent,options.toBundle());
                     finish();
+                }else{
+                    startActivity(intent);
                 }
             }
         }, SPLASH_SCREEN);

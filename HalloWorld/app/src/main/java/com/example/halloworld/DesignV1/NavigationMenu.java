@@ -140,20 +140,14 @@ public class NavigationMenu extends AppCompatActivity implements NavigationView.
 
     public void quickLogout(){
 
-        FirebaseMessaging.getInstance().deleteToken().addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                firebaseAuth = FirebaseAuth.getInstance();
-                googleSignInClient = GoogleSignIn.getClient(activity, GoogleSignInOptions.DEFAULT_SIGN_IN);
-                googleSignInClient.signOut();
-                firebaseAuth.signOut();
-                userLocalStore.clearUserData();
-                LoginManager.getInstance().logOut();
-                Intent intent = new Intent(activity, Anmeldeauswahl.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
+        firebaseAuth = FirebaseAuth.getInstance();
+        googleSignInClient = GoogleSignIn.getClient(activity, GoogleSignInOptions.DEFAULT_SIGN_IN);
+        googleSignInClient.signOut();
+        LoginManager.getInstance().logOut();
+        firebaseAuth.signOut();
+        userLocalStore.clearUserData();
+        Intent intent = new Intent(activity, Anmeldeauswahl.class);
+        startActivity(intent);
+        finish();
     }
 }
