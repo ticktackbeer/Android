@@ -39,16 +39,17 @@
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/add_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="@android:color/holo_orange_dark"
         android:clickable="true"
         android:focusable="true"
-        android:backgroundTint="@android:color/holo_orange_dark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_Getränkleeren"
-        app:layout_constraintTop_toBottomOf="@+id/button_Getränkleeren"
+        app:layout_constraintTop_toBottomOf="@+id/imagebtn_Trinken"
+        app:layout_constraintVertical_bias="0.8"
         app:srcCompat="@drawable/ic_add" />
 
 
@@ -64,18 +65,46 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_Getränkleeren"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
         android:backgroundTint="@android:color/holo_orange_dark"
         android:text="Getränk leeren"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:cornerRadius="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/topic_Homescreen"
-        app:layout_constraintStart_toStartOf="@+id/topic_Homescreen"
-        app:layout_constraintTop_toBottomOf="@+id/imagebtn_Trinken"
-        app:layout_constraintVertical_bias="0.20" />
+        app:layout_constraintBottom_toBottomOf="@+id/add_btn"
+        app:layout_constraintEnd_toStartOf="@+id/add_btn"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/add_btn"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/edit_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="invisible"
+        android:backgroundTint="@android:color/holo_orange_dark"
+        app:layout_constraintBottom_toTopOf="@+id/add_btn"
+        app:layout_constraintEnd_toEndOf="@+id/add_btn"
+        app:srcCompat="@drawable/ic_edit" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/image_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="invisible"
+        android:backgroundTint="@android:color/holo_orange_dark"
+        app:layout_constraintBottom_toTopOf="@+id/edit_btn"
+        app:layout_constraintEnd_toEndOf="@+id/edit_btn"
+        app:srcCompat="@drawable/ic_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
