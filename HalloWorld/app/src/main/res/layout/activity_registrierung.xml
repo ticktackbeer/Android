@@ -31,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/topic_Registrierung"
         app:srcCompat="@drawable/anstossen" />
 
-
+    //  Bestätigung Button
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_Bestätigen"
         android:layout_width="350sp"
@@ -47,58 +47,109 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.8" />
 
-    <EditText
-        android:id="@+id/input_Name"
-        android:layout_width="400sp"
+    //  Vor und Nachname Eingabe
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutEmailNameRegistration"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Vor- und Nachname"
-        android:textColor="@color/white"
+        android:layout_marginBottom="25dp"
+        android:textColorHint="@color/white"
+        app:boxStrokeColor="@color/white"
+        app:hintEnabled="true"
         app:layout_constraintBottom_toTopOf="@+id/button_Bestätigen"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <EditText
-        android:id="@+id/input_Passwortbestätigen"
-        android:layout_width="400sp"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_Name"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Vor- und Nachname"
+            android:inputType="textPassword"
+            android:textSize="20dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    //  Passwort bestätigen Eingabe
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutEmailBestaetigungRegistration"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:ems="10"
-        android:hint=" Passwort bestätigen"
-        android:inputType="textPassword"
-        android:textColor="@color/white"
+        android:layout_marginBottom="25dp"
         android:textColorHint="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/input_Name"
+        app:boxStrokeColor="@color/white"
+        app:hintEnabled="true"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayoutEmailPasswortRegistration"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <EditText
-        android:id="@+id/input_Passwort"
-        android:layout_width="400sp"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_Passwortbestätigen"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Passwort bestätigen"
+            android:inputType="textPassword"
+            android:textSize="20dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    //  Email Passwort
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutEmailPasswortRegistration"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:ems="10"
-        android:hint="Passwort"
-        android:inputType="numberPassword"
-        android:textColor="@color/white"
+        android:layout_marginBottom="25dp"
         android:textColorHint="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/input_Passwortbestätigen"
+        app:boxStrokeColor="@color/white"
+        app:hintEnabled="true"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayoutEmailRegistration"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <EditText
-        android:id="@+id/input_Email"
-        android:layout_width="400sp"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_Passwort"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Passwort"
+            android:inputType="textPassword"
+            android:textSize="20dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    //  Email Eingabe
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutEmailRegistration"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Email"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/input_Passwort"
+        android:layout_marginBottom="25dp"
+        android:textColorHint="@color/white"
+        app:boxStrokeColor="@color/white"
+        app:hintEnabled="true"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayoutEmailNameRegistration"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_Email"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textPassword"
+            android:textSize="20dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
