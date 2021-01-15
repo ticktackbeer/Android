@@ -56,7 +56,7 @@ public class Anmeldeauswahl extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     String userTocken;
 
-
+   AuthCredential FBAuthCredential;
     //google
     Button btnGlogin;
     GoogleSignInClient googleSignInClient;
@@ -94,9 +94,10 @@ public class Anmeldeauswahl extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (userLocalStore.getLoginTyp() == LoginType.google) {
-            if (requestCode == 100) {
+
                 // when request code is equel to 100
                 Task<GoogleSignInAccount> signInAccountTask = GoogleSignIn.getSignedInAccountFromIntent(data);
+
 
                 if (signInAccountTask.isSuccessful()) {
 
@@ -128,6 +129,17 @@ public class Anmeldeauswahl extends AppCompatActivity {
                                                 }catch (Exception e){
                                                     showDialogBox(e.getMessage());
                                                 }
+                                                if(requestCode==200){
+                                                    user.linkWithCredential(FBAuthCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                                            // Redirect to profile activty
+                                                            Intent intent = new Intent(Anmeldeauswahl.this, HomeScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                            startActivity(intent);
+                                                            finish();
+                                                        }
+                                                    });
+                                                }
                                                 // Redirect to profile activty
                                                 Intent intent = new Intent(Anmeldeauswahl.this, HomeScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                 startActivity(intent);
@@ -150,7 +162,7 @@ public class Anmeldeauswahl extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-            }
+
         }
         if (userLocalStore.getLoginTyp() == LoginType.facebook) {
             callbackManager.onActivityResult(requestCode, resultCode, data);
@@ -270,42 +282,30 @@ public class Anmeldeauswahl extends AppCompatActivity {
                     FirebaseAuthUserCollisionException exception = (FirebaseAuthUserCollisionException) task.getException();
                     if (exception.getErrorCode() ==
                             "ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL") {
-                    FirebaseUser das= firebaseAuth.getCurrentUser();
-                        showDialogBox(task.getException().getMessage());
-//                    firebaseAuth.getCurrentUser().linkWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<AuthResult> task) {
-//                            if(task.isSuccessful()){
-//                                FirebaseUser userFB = task.getResult().getUser();
-//                            }else{
-//                                showDialogBox("Linken hat nicht geklappt");
-//                            }
-//
-//                        }
-//                    });
 
-//                        FirebaseAuth.getInstance().fetchSignInMethodsForEmail(facebookrequestedEmail).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
-//                                if (task.isSuccessful()) {
-//                                   if (task.getResult().getSignInMethods().get(0).contains("google")) {
-//                                        infoText= "Du bist bereits mit einem Google Account registriert.Bitte melde dich mit Google an.";
-//                                        googleLoginForFacebook(infoText);
-//                                    } else if (task.getResult().getSignInMethods().get(0).contains("email")) {
-//                                        infoText= "Du bist bereits mit deiner Email Adresse registriert.Bitte melde dich mit deiner Email Adresse an.";
-//                                        googleLoginForEmail(infoText);
-//                                    } else {
-//                                        infoText="User hat keinen Provider";
-//                                        showDialogBox(infoText);
-//                                    }
-//
-//                                }else{
-//                                    infoText="Account bei einem anderem Provider?";
-//                                    showDialogBox(task.getException().getMessage());
-//                                }
-//                                LoginManager.getInstance().logOut();
-//                            }
-//                        });
+                        FirebaseAuth.getInstance().fetchSignInMethodsForEmail(facebookrequestedEmail).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                                if (task.isSuccessful()) {
+                                   if (task.getResult().getSignInMethods().get(0).contains("google")) {
+                                        infoText= "Du bist bereits mit einem Google Account registriert.Bitte melde dich mit Google an.";
+                                       FBAuthCredential = credential;
+                                        googleLoginForFacebook(infoText);
+                                    } else if (task.getResult().getSignInMethods().get(0).contains("email")) {
+                                        infoText= "Du bist bereits mit deiner Email Adresse registriert.Bitte melde dich mit deiner Email Adresse an.";
+                                        googleLoginForEmail(infoText);
+                                    } else {
+                                        infoText="User hat keinen Provider";
+                                        showDialogBox(infoText);
+                                    }
+
+                                }else{
+                                    infoText="Account bei einem anderem Provider?";
+                                    showDialogBox(task.getException().getMessage());
+                                }
+                                LoginManager.getInstance().logOut();
+                            }
+                        });
                     } else {
                         showDialogBox(task.getException().getMessage());
                     }
@@ -386,9 +386,18 @@ public class Anmeldeauswahl extends AppCompatActivity {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Anmeldeauswahl.this);
         dialogBuilder.setMessage(infoText);
+        dialogBuilder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Anmeldeauswahl.this, Anmeldeauswahl.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         dialogBuilder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
                 GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(
                         GoogleSignInOptions.DEFAULT_SIGN_IN
                 ).requestIdToken("675714750172-viipjd5hq67r468p3tu8prrf0jso0275.apps.googleusercontent.com")
@@ -398,7 +407,8 @@ public class Anmeldeauswahl extends AppCompatActivity {
 
                 userLocalStore.storeLogintype(LoginType.google);
                 Intent intent = googleSignInClient.getSignInIntent();
-                startActivityForResult(intent, 100);
+                startActivityForResult(intent, 200);
+
             }
         });
         dialogBuilder.show();
