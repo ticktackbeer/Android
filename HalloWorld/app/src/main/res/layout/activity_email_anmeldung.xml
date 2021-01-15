@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Email"
-            android:inputType="textPassword"
+            android:inputType="textAutoComplete"
             android:textSize="20dp" />
 
     </com.google.android.material.textfield.TextInputLayout>

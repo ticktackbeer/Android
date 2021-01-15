@@ -98,16 +98,17 @@ public class EmailAnmeldung extends AppCompatActivity {
                                             userTocken= task.getResult();
                                             User person = new User(user.getDisplayName(), user.getEmail(), user.getEmail(), -1, user.getUid(), LoginType.email.toString(),null,userTocken);
                                             userLocalStore.storeUserData(person );
-                                            FirebaseDatabase.getInstance().getReference("User").child("User").child(generateEmailkey(user.getEmail())).setValue(person);
+                                            FirebaseDatabase.getInstance().getReference("User").child(generateEmailkey(user.getEmail())).setValue(person);
                                             // Redirect to profile activty
-                                            Intent intent = new Intent(EmailAnmeldung.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            Intent intent = new Intent(EmailAnmeldung.this, HomeScreen.class);
                                             startActivity(intent);
+                                            finish();
                                         }
                                     });
 
                                 } else if (!task.isSuccessful() && task.getException() instanceof FirebaseAuthUserCollisionException) {
 
-                                    // User mit account verlinken
+                                    //TODO: User mit account verlinken
                                 } else if(task.getException() instanceof FirebaseAuthInvalidUserException){
                                     FirebaseAuthInvalidUserException ee= (FirebaseAuthInvalidUserException) task.getException();
                                     showErrorMessage(ee.getMessage());

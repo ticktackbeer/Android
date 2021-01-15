@@ -82,7 +82,6 @@ public class Anmeldeauswahl extends AppCompatActivity {
         btnElogin = findViewById(R.id.button_Email);
         btnGlogin = findViewById(R.id.button_Google);
         btnFlogin = findViewById(R.id.button_Facebook);
-        //btnFlogin.setReadPermissions("email", "public_profile");
         quickLogout();
         Glogin();
         facebookLogin();
@@ -239,50 +238,6 @@ public class Anmeldeauswahl extends AppCompatActivity {
             }
         });
 
-//        btnFlogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-//
-//            @Override
-//            public void onSuccess(LoginResult loginResult) {
-//
-//                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-//
-//                    @Override
-//                    public void onCompleted(JSONObject object, GraphResponse response) {
-//                        // Get facebook data from login
-//                        Bundle bFacebookData = getFacebookData(object);
-//                        if (object.has("email")) {
-//                            try {
-//                                String email = object.getString("email");
-//
-//                                facebookrequestedEmail = email;
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    }
-//                });
-//                Bundle parameters = new Bundle();
-//                parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location"); // Parámetros que pedimos a facebook
-//                request.setParameters(parameters);
-//                request.executeAsync();
-//
-//                Log.d(FTag, "onSuccess" + loginResult);
-//                handleFacebookToken(loginResult.getAccessToken());
-//
-//            }
-//            @Override
-//            public void onCancel() {
-//                userLocalStore.storeLogintype(LoginType.facebook);
-//                Log.d(FTag, "onCancel");
-//            }
-//
-//            @Override
-//            public void onError(FacebookException error) {
-//                userLocalStore.storeLogintype(LoginType.facebook);
-//                Log.d(FTag, "onError");
-//            }
-//        });
-        
     }
 
     private void handleFacebookToken(AccessToken accessToken) {
@@ -312,32 +267,45 @@ public class Anmeldeauswahl extends AppCompatActivity {
 
                 } else if (!task.isSuccessful() && task.getException() instanceof FirebaseAuthUserCollisionException) {
 
-                    FirebaseAuthUserCollisionException exception =
-                            (FirebaseAuthUserCollisionException) task.getException();
+                    FirebaseAuthUserCollisionException exception = (FirebaseAuthUserCollisionException) task.getException();
                     if (exception.getErrorCode() ==
                             "ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL") {
-                        FirebaseAuth.getInstance().fetchSignInMethodsForEmail(facebookrequestedEmail).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
-                                if (task.isSuccessful()) {
-                                   if (task.getResult().getSignInMethods().get(0).contains("google")) {
-                                        infoText= "Du bist bereits mit einem Google Account registriert.Bitte melde dich mit Google an.";
-                                        googleLoginForFacebook(infoText);
-                                    } else if (task.getResult().getSignInMethods().get(0).contains("email")) {
-                                        infoText= "Du bist bereits mit deiner Email Adresse registriert.Bitte melde dich mit deiner Email Adresse an.";
-                                        googleLoginForEmail(infoText);
-                                    } else {
-                                        infoText="User hat keinen Provider";
-                                        showDialogBox(infoText);
-                                    }
+                    FirebaseUser das= firebaseAuth.getCurrentUser();
+                        showDialogBox(task.getException().getMessage());
+//                    firebaseAuth.getCurrentUser().linkWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<AuthResult> task) {
+//                            if(task.isSuccessful()){
+//                                FirebaseUser userFB = task.getResult().getUser();
+//                            }else{
+//                                showDialogBox("Linken hat nicht geklappt");
+//                            }
+//
+//                        }
+//                    });
 
-                                }else{
-                                    infoText="Account bei einem anderem Provider?";
-                                    showDialogBox(task.getException().getMessage());
-                                }
-                                LoginManager.getInstance().logOut();
-                            }
-                        });
+//                        FirebaseAuth.getInstance().fetchSignInMethodsForEmail(facebookrequestedEmail).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+//                                if (task.isSuccessful()) {
+//                                   if (task.getResult().getSignInMethods().get(0).contains("google")) {
+//                                        infoText= "Du bist bereits mit einem Google Account registriert.Bitte melde dich mit Google an.";
+//                                        googleLoginForFacebook(infoText);
+//                                    } else if (task.getResult().getSignInMethods().get(0).contains("email")) {
+//                                        infoText= "Du bist bereits mit deiner Email Adresse registriert.Bitte melde dich mit deiner Email Adresse an.";
+//                                        googleLoginForEmail(infoText);
+//                                    } else {
+//                                        infoText="User hat keinen Provider";
+//                                        showDialogBox(infoText);
+//                                    }
+//
+//                                }else{
+//                                    infoText="Account bei einem anderem Provider?";
+//                                    showDialogBox(task.getException().getMessage());
+//                                }
+//                                LoginManager.getInstance().logOut();
+//                            }
+//                        });
                     } else {
                         showDialogBox(task.getException().getMessage());
                     }
