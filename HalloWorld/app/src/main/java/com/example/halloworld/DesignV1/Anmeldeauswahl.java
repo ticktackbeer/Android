@@ -288,9 +288,9 @@ public class Anmeldeauswahl extends AppCompatActivity {
                             public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
                                 if (task.isSuccessful()) {
                                    if (task.getResult().getSignInMethods().get(0).contains("google")) {
-                                        infoText= "Du bist bereits mit einem Google Account registriert.Bitte melde dich mit Google an.";
+                                        infoText= "Du bist bereits mit einem Google Account registriert.Um deinen Account zu verlinken drücke 'OK'";
                                        FBAuthCredential = credential;
-                                        googleLoginForFacebook(infoText);
+                                        googleLoginForFacebook(infoText,facebookrequestedEmail);
                                     } else if (task.getResult().getSignInMethods().get(0).contains("email")) {
                                         infoText= "Du bist bereits mit deiner Email Adresse registriert.Bitte melde dich mit deiner Email Adresse an.";
                                         googleLoginForEmail(infoText);
@@ -382,7 +382,7 @@ public class Anmeldeauswahl extends AppCompatActivity {
         return null;
     }
 
-    public void googleLoginForFacebook(String infoText){
+    public void googleLoginForFacebook(String infoText, String FBEmail){
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Anmeldeauswahl.this);
         dialogBuilder.setMessage(infoText);
@@ -401,11 +401,13 @@ public class Anmeldeauswahl extends AppCompatActivity {
                 GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(
                         GoogleSignInOptions.DEFAULT_SIGN_IN
                 ).requestIdToken("675714750172-viipjd5hq67r468p3tu8prrf0jso0275.apps.googleusercontent.com")
-                        .requestEmail()
+                        .setAccountName(FBEmail)
                         .build();
                 googleSignInClient = GoogleSignIn.getClient(Anmeldeauswahl.this, googleSignInOptions);
 
                 userLocalStore.storeLogintype(LoginType.google);
+
+
                 Intent intent = googleSignInClient.getSignInIntent();
                 startActivityForResult(intent, 200);
 
@@ -419,7 +421,7 @@ public class Anmeldeauswahl extends AppCompatActivity {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Anmeldeauswahl.this);
         dialogBuilder.setMessage(infoText);
-        dialogBuilder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+        dialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 userLocalStore.storeLogintype(LoginType.email);
