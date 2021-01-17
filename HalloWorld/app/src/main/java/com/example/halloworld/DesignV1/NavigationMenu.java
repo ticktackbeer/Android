@@ -41,6 +41,7 @@ public class NavigationMenu extends AppCompatActivity implements NavigationView.
         this.nav_id = nav_id;
         drawerLayout = findViewById(R.id.navigation_layout);
         navigationView = findViewById(R.id.navigation_view);
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this.activity, drawerLayout, toolbar,
                 R.string.navigation_drawer_open,
