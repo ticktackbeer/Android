@@ -31,6 +31,7 @@ public class HomeScreen extends NavigationMenu {
         super.setDrawerLayout(this,toolbar,R.id.nav_home);
 
         userLocalStore = new UserLocalStore(this);
+        trinkBtn = findViewById(R.id.imagebtn_Trinken);
 
         // Floating Action Button im HomeScreen
         fab_add=findViewById(R.id.add_btn);
