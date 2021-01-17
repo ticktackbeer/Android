@@ -1,31 +1,26 @@
-package com.example.halloworld.DesignV1;
+package com.example.halloworld.DesignV1.Email;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.halloworld.EmailLogin;
+import com.example.halloworld.DesignV1.HomeScreen;
 import com.example.halloworld.Enum.LoginType;
-import com.example.halloworld.MainActivity;
 import com.example.halloworld.Model.User;
 import com.example.halloworld.R;
 import com.example.halloworld.Utility.UserLocalStore;
-import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -34,13 +29,12 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class EmailAnmeldung extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
-    EditText email;
+    String email;
     EditText password;
     Button btnConfirm;
     UserLocalStore userLocalStore;
@@ -53,7 +47,7 @@ public class EmailAnmeldung extends AppCompatActivity {
 
         userLocalStore = new UserLocalStore(this);
         firebaseAuth = FirebaseAuth.getInstance();
-        email = findViewById(R.id.AnmeldungEmail);
+        email = getIntent().getStringExtra("email");
         password = findViewById(R.id.RegistrationPassword);
         btnConfirm = findViewById(R.id.button_Bestätigen);
         registration = findViewById(R.id.textRegistrieren);
@@ -64,7 +58,7 @@ public class EmailAnmeldung extends AppCompatActivity {
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
-                Intent intent = new Intent(EmailAnmeldung.this, Registrierung.class);
+                Intent intent = new Intent(EmailAnmeldung.this, EmailRegistrierung.class);
                 startActivity(intent);
 
             }
@@ -82,7 +76,7 @@ public class EmailAnmeldung extends AppCompatActivity {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String inputEmail = email.getText().toString();
+                String inputEmail = email;
                 String inputPassword = password.getText().toString();
                 firebaseAuth.signInWithEmailAndPassword(inputEmail, inputPassword)
                         .addOnCompleteListener(EmailAnmeldung.this, new OnCompleteListener<AuthResult>() {
@@ -100,26 +94,36 @@ public class EmailAnmeldung extends AppCompatActivity {
                                             userLocalStore.storeUserData(person );
                                             FirebaseDatabase.getInstance().getReference("User").child(generateEmailkey(user.getEmail())).setValue(person);
                                             // Redirect to profile activty
-                                            Intent intent = new Intent(EmailAnmeldung.this, HomeScreen.class);
-                                            startActivity(intent);
-                                            finish();
+                                            if(!user.isEmailVerified()){
+                                                Intent intent = new Intent(EmailAnmeldung.this, EmailVerification.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }else{
+                                                Intent intent = new Intent(EmailAnmeldung.this, HomeScreen.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+
                                         }
                                     });
 
                                 } else if (!task.isSuccessful() && task.getException() instanceof FirebaseAuthUserCollisionException) {
-
+                                    showErrorMessage("FirebaseAuthUserCollisionException");
                                     //TODO: User mit account verlinken
                                 } else if(task.getException() instanceof FirebaseAuthInvalidUserException){
                                     FirebaseAuthInvalidUserException ee= (FirebaseAuthInvalidUserException) task.getException();
-                                    showErrorMessage(ee.getMessage());
+                                    //showErrorMessage(ee.getMessage());
+                                    showErrorMessage("FirebaseAuthInvalidUserException");
                                 }else if(task.getException() instanceof FirebaseAuthInvalidCredentialsException){
                                     FirebaseAuthInvalidCredentialsException ee= (FirebaseAuthInvalidCredentialsException) task.getException();
-                                    showErrorMessage(ee.getMessage());
+                                    //showErrorMessage(ee.getMessage());
+                                    showErrorMessage("FirebaseAuthInvalidCredentialsException");
                                 }
                                 else {
                                     // If sign in fails, display a message to the user.
                                     Exception ex = task.getException();
-                                    showErrorMessage(ex.getMessage());
+                                    //showErrorMessage(ex.getMessage());
+                                    showErrorMessage("else");
                                 }
 
                             }

@@ -12,7 +12,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-import com.example.halloworld.EmailLogin;
+
+import com.example.halloworld.DesignV1.Email.EmailAnmeldung;
+import com.example.halloworld.DesignV1.Email.EmailStartScreen;
 import com.example.halloworld.Enum.LoginType;
 import com.example.halloworld.Model.User;
 import com.example.halloworld.R;
@@ -291,7 +293,7 @@ public class Anmeldeauswahl extends AppCompatActivity {
                                         infoText= "Du bist bereits mit einem Google Account registriert.Um deinen Account zu verlinken drücke 'OK'";
                                        FBAuthCredential = credential;
                                         googleLoginForFacebook(infoText,facebookrequestedEmail);
-                                    } else if (task.getResult().getSignInMethods().get(0).contains("email")) {
+                                    } else if (task.getResult().getSignInMethods().get(0).contains("password")) {
                                         infoText= "Du bist bereits mit deiner Email Adresse registriert.Bitte melde dich mit deiner Email Adresse an.";
                                         googleLoginForEmail(infoText);
                                     } else {
@@ -323,12 +325,9 @@ public class Anmeldeauswahl extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 userLocalStore.storeLogintype(LoginType.email);
-                if (firebaseAuth.getCurrentUser() != null) {
-                    quickLogout();
-                }
-                Intent intent = new Intent(Anmeldeauswahl.this, EmailAnmeldung.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Intent intent = new Intent(Anmeldeauswahl.this, EmailStartScreen.class);
                 startActivity(intent);
-                finish();
+
             }
         });
     }
@@ -429,7 +428,8 @@ public class Anmeldeauswahl extends AppCompatActivity {
                     quickLogout();
 
                 }
-                Intent intent = new Intent(Anmeldeauswahl.this, EmailLogin.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Intent intent = new Intent(Anmeldeauswahl.this, EmailAnmeldung.class)
+                        .putExtra("email",facebookrequestedEmail);
                 startActivity(intent);
                 finish();
             }

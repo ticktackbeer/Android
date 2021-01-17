@@ -1,6 +1,7 @@
 package com.example.halloworld;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -21,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class Friends extends DrawerMenu implements AdapterClassFriends.FriendsClickInterface {
+public class Friends extends AppCompatActivity implements AdapterClassFriends.FriendsClickInterface {
     DatabaseReference databaseReference;
     ArrayList<String> userArrayList;
     RecyclerView recyclerView;
@@ -35,10 +36,8 @@ public class Friends extends DrawerMenu implements AdapterClassFriends.FriendsCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_friends);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
-        super.setDrawerLayout(this, toolbar, R.id.nav_people);
         FirebaseUser user =FirebaseAuth.getInstance().getCurrentUser();
         databaseReference= FirebaseDatabase.getInstance().getReference().child("Friend").child(generateEmailkey(user.getEmail()));
         recyclerView = findViewById(R.id.rv);

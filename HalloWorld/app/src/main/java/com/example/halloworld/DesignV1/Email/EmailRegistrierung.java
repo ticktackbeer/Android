@@ -1,4 +1,4 @@
-package com.example.halloworld.DesignV1;
+package com.example.halloworld.DesignV1.Email;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -6,19 +6,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.example.halloworld.EmailRegistration;
+import com.example.halloworld.DesignV1.Anmeldeauswahl;
 import com.example.halloworld.Enum.LoginType;
-import com.example.halloworld.MainActivity;
 import com.example.halloworld.Model.User;
 import com.example.halloworld.R;
 import com.example.halloworld.Utility.UserLocalStore;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,10 +25,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-public class Registrierung extends AppCompatActivity {
+public class EmailRegistrierung extends AppCompatActivity {
 
     private Button button;
-    private EditText inputeMail;
+    private String inputeMail;
     private EditText inputPassword;
     private EditText inputName;
     private EditText inputPasswordBestaetigung;
@@ -47,7 +46,7 @@ public class Registrierung extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         button = findViewById(R.id.button_Bestätigen);
-        inputeMail = findViewById(R.id.input_Email);
+        inputeMail = getIntent().getStringExtra("email");
         inputPasswordBestaetigung= findViewById(R.id.input_Passwortbestätigen);
         inputPassword = findViewById(R.id.input_Passwort);
         inputName = findViewById(R.id.input_Name);
@@ -57,7 +56,7 @@ public class Registrierung extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String email = inputeMail.getText().toString();
+                String email = inputeMail;
                 String userName = inputName.getText().toString();
                 String password = inputPassword.getText().toString();
                 String passwordBestaetigung = inputPasswordBestaetigung.getText().toString();
@@ -83,13 +82,12 @@ public class Registrierung extends AppCompatActivity {
 
 
     private void registerInFirebase() {
-        firebaseAuth.createUserWithEmailAndPassword(inputeMail.getText().toString(), inputPassword.getText().toString())
+        firebaseAuth.createUserWithEmailAndPassword(inputeMail, inputPassword.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(Registrierung.this, "Email create User Authentication successful", Toast.LENGTH_SHORT).show();
                             userLocalStore.setUserLoggedIn(true);
                             userLocalStore.storeLogintype(LoginType.email);
                             FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -101,9 +99,22 @@ public class Registrierung extends AppCompatActivity {
                                     userLocalStore.storeUserData(person );
                                     FirebaseDatabase.getInstance().getReference("User").child(generateEmailkey(user.getEmail())).setValue(person);
 
-                                    // Zur anmeldeauswahl damit der user sich anmelden kann.
-                                    Intent intent = new Intent(Registrierung.this, Anmeldeauswahl.class);
-                                    startActivity(intent);
+                                    user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            // Zur anmeldeauswahl damit der user sich anmelden kann.
+                                            Intent intent = new Intent(EmailRegistrierung.this, EmailVerification.class)
+                                                    .putExtra("email",inputeMail);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            showErrorMessage("Registrieung fehlgeschlagen.Bitte versuche es erneut oder kontaktiere uns.");
+                                        }
+                                    });
+
                                 }
                             });
 
@@ -124,7 +135,7 @@ public class Registrierung extends AppCompatActivity {
     }
 
     private void showErrorMessage(String text) {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Registrierung.this);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(EmailRegistrierung.this);
         dialogBuilder.setMessage(text);
         dialogBuilder.setPositiveButton("ok", null);
         dialogBuilder.show();

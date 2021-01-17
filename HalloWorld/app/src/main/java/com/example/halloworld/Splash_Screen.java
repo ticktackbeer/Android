@@ -16,6 +16,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.halloworld.DesignV1.SplashScreen;
+
 import static android.os.Build.VERSION.SDK_INT;
 
 public class Splash_Screen<SPLASH_SCREEN> extends AppCompatActivity {
@@ -51,7 +53,7 @@ public class Splash_Screen<SPLASH_SCREEN> extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(Splash_Screen.this, Login.class);
+                Intent intent = new Intent(Splash_Screen.this, SplashScreen.class);
 
                 Pair[] pairs = new Pair[2];
                 pairs[0] = new Pair<View, String>(image, "logo_image");

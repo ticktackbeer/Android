@@ -1,6 +1,7 @@
 package com.example.halloworld;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class SearchBar extends DrawerMenu implements AdapterClassSearchBar.SearchbarClickInterface {
+public class SearchBar extends AppCompatActivity implements AdapterClassSearchBar.SearchbarClickInterface {
     DatabaseReference databaseReference;
     ArrayList<User> userArrayList;
     RecyclerView recyclerView;
@@ -41,7 +42,6 @@ public class SearchBar extends DrawerMenu implements AdapterClassSearchBar.Searc
         setContentView(R.layout.activity_search_bar);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
-        super.setDrawerLayout(this, toolbar, R.id.nav_person_add);
 
         databaseReference= FirebaseDatabase.getInstance().getReference().child("User");
         recyclerView = findViewById(R.id.rv);

@@ -1,5 +1,6 @@
 package com.example.halloworld;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
@@ -31,7 +32,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PushNotification extends DrawerMenu {
+public class PushNotification extends AppCompatActivity {
     Button button;
     Button S10button;
     Button Huawaibutton;
@@ -73,7 +74,6 @@ public class PushNotification extends DrawerMenu {
         setContentView(R.layout.activity_push_notification);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Push Test");
-        super.setDrawerLayout(this, toolbar, R.id.nav_pushtest);
         S10button = findViewById(R.id.BtnNotifiIdS10);
         Huawaibutton = findViewById(R.id.BtnNotifiIdHuawai);
         Tabletbutton = findViewById(R.id.BtnNotifiIdtablet);

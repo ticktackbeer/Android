@@ -15,6 +15,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.halloworld.DesignV1.Email.EmailVerification;
+import com.example.halloworld.Enum.LoginType;
 import com.example.halloworld.Model.User;
 import com.example.halloworld.R;
 import com.example.halloworld.Utility.UserLocalStore;
@@ -62,6 +64,17 @@ public class SplashScreen extends AppCompatActivity {
                 //startActivity(intent);
                 if(!userLocalStore.isUserLoggedIn()){
                     intent= new Intent(SplashScreen.this, Wilkommen.class);
+                }else if(userLocalStore.getLoginTyp()== LoginType.email) {
+                        if(FirebaseAuth.getInstance().getCurrentUser()!=null){
+                            if(!FirebaseAuth.getInstance().getCurrentUser().isEmailVerified()){
+                                intent= new Intent(SplashScreen.this, EmailVerification.class);
+                            }else{
+                                intent= new Intent(SplashScreen.this, HomeScreen.class);
+                            }
+                        }else{
+                            intent= new Intent(SplashScreen.this, Wilkommen.class);
+                        }
+
                 }else{
                     intent= new Intent(SplashScreen.this, HomeScreen.class);
                 }
