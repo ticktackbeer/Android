@@ -1,4 +1,4 @@
-package com.example.halloworld.Service;
+package com.example.halloworld.DesignV1.Service;
 
 import android.app.NotificationManager;
 import android.app.Service;
@@ -18,8 +18,8 @@ public class FriendRequestService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         String notificationType =intent.getStringExtra("notificationType");
-        User userSender = (User) intent.getSerializableExtra("senderUser");
-        User userResponse = (User) intent.getSerializableExtra("responseUser");
+        User userSender = (User) intent.getSerializableExtra("userSender");
+        User userReciver = (User) intent.getSerializableExtra("userReciver");
 
         Log.i("TAG", "FriendRequest userToken: "+ userSender.getUserToken());
         if( notificationType.equals("friendRequest")){
@@ -28,7 +28,7 @@ public class FriendRequestService extends Service {
                 notificationManager.cancel(intent.getIntExtra(getString(R.string.NOTIFICATION_ID_KEY_FRIEND_REQUEST),0));
 
                 FirebaseMessaging.getInstance().subscribeToTopic(userSender.getEmail().replace("@","AT"));
-                new PushNotification(userSender,userResponse,this).sendFriendRequestResponseNotification();
+                new PushNotificationSenderService(this,userSender,userReciver).sendFriendRequestResponseNotification();
             }
 
             stopSelf();

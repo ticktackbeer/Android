@@ -36,12 +36,12 @@
         <activity android:name=".Splash_Screen" />
 
         <service
-            android:name=".Service.DirectReplyService"
+            android:name=".DesignV1.Service.DirectReplyService"
             android:enabled="true"
             android:exported="true" />
 
         <service
-            android:name=".Service.FriendRequestService"
+            android:name=".DesignV1.Service.FriendRequestService"
             android:enabled="true"
             android:exported="true" />
 
@@ -78,6 +78,13 @@
 
         <service
             android:name=".Service.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".DesignV1.Service.PushNotificationReciverService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

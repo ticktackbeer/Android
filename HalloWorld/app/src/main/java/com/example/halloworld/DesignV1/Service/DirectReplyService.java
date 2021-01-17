@@ -1,4 +1,4 @@
-package com.example.halloworld.Service;
+package com.example.halloworld.DesignV1.Service;
 
 import android.app.NotificationManager;
 import android.app.RemoteInput;
@@ -28,7 +28,7 @@ public class DirectReplyService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         // Infos über den Versender der Trink message, benötigt um  in die PushNachricht zu schicken
-        User userSender = (User) intent.getSerializableExtra("senderUser");
+        User userSender = (User) intent.getSerializableExtra("userSender");
 
         if(intent.hasExtra(getString(R.string.NOTIFICATION_ID_KEY_TRINK_REQUEST))){
             NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
@@ -39,7 +39,7 @@ public class DirectReplyService extends Service {
         Bundle directRemoteInfo = RemoteInput.getResultsFromIntent(intent);
         CharSequence inputtext = directRemoteInfo.getCharSequence(getString(R.string.NOTIFICATION_ID_KEY_TRINK_REPLY));
 
-        new PushNotification(this,userSender).sendTrinkReplyNotification(inputtext.toString());
+        new PushNotificationSenderService(this,userSender).sendTrinkReplyNotification(inputtext.toString());
         stopSelf();
         return super.onStartCommand(intent, flags, startId);
     }

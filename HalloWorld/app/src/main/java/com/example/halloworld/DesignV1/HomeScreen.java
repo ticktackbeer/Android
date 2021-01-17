@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-
+import android.widget.ImageButton;
+import com.example.halloworld.DesignV1.Service.PushNotificationSenderService;
 import com.example.halloworld.R;
+import com.example.halloworld.Utility.UserLocalStore;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeScreen extends NavigationMenu {
@@ -16,6 +18,8 @@ public class HomeScreen extends NavigationMenu {
     FloatingActionButton fab_add,fab_edit,fab_image;
     Animation FabOpen,FabClose,FabRClockwise,FabRAntiClockwise;
     boolean isOpen = false;
+    ImageButton trinkBtn;
+    UserLocalStore userLocalStore;
 
 
     Toolbar toolbar;
@@ -25,6 +29,8 @@ public class HomeScreen extends NavigationMenu {
         setContentView(R.layout.activity_home_screen);
         toolbar= findViewById(R.id.toolbar);
         super.setDrawerLayout(this,toolbar,R.id.nav_home);
+
+        userLocalStore = new UserLocalStore(this);
 
         // Floating Action Button im HomeScreen
         fab_add=findViewById(R.id.add_btn);
@@ -53,6 +59,13 @@ public class HomeScreen extends NavigationMenu {
                     fab_image.setClickable(true);
                     isOpen = true;
                 }
+            }
+        });
+
+        trinkBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new PushNotificationSenderService(HomeScreen.this,userLocalStore.getLoggedInUser()).sendTrinkNotification();
             }
         });
     }
