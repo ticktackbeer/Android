@@ -64,17 +64,8 @@ public class SplashScreen extends AppCompatActivity {
                 //startActivity(intent);
                 if(!userLocalStore.isUserLoggedIn()){
                     intent= new Intent(SplashScreen.this, Wilkommen.class);
-                }else if(userLocalStore.getLoginTyp()== LoginType.email) {
-                        if(FirebaseAuth.getInstance().getCurrentUser()!=null){
-                            if(!FirebaseAuth.getInstance().getCurrentUser().isEmailVerified()){
-                                intent= new Intent(SplashScreen.this, EmailVerification.class);
-                            }else{
-                                intent= new Intent(SplashScreen.this, HomeScreen.class);
-                            }
-                        }else{
-                            intent= new Intent(SplashScreen.this, Wilkommen.class);
-                        }
-
+                }else if(userLocalStore.getLoginTyp()== LoginType.email && !FirebaseAuth.getInstance().getCurrentUser().isEmailVerified()) {
+                    intent= new Intent(SplashScreen.this, EmailVerification.class);
                 }else{
                     intent= new Intent(SplashScreen.this, HomeScreen.class);
                 }

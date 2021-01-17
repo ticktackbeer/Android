@@ -57,7 +57,7 @@ public class EmailVerification extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if(!task.isSuccessful()){
                             Toast.makeText(EmailVerification.this, "Ein Fehler ist aufgetreten bitte versuche es nocheinmal", Toast.LENGTH_SHORT).show();
-                            quickLogout();
+                            quickLogoutVerficationFail();
                         }else{
                             quickLogout();
                         }
@@ -75,6 +75,15 @@ public class EmailVerification extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         GoogleSignIn.getClient(EmailVerification.this, GoogleSignInOptions.DEFAULT_SIGN_IN).signOut();
         LoginManager.getInstance().logOut();
+        userLocalStore.clearUserData();
+        Intent intent = new Intent(EmailVerification.this, Anmeldeauswahl.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void quickLogoutVerficationFail(){
+
+        FirebaseAuth.getInstance().signOut();
         userLocalStore.clearUserData();
         Intent intent = new Intent(EmailVerification.this, Anmeldeauswahl.class);
         startActivity(intent);
