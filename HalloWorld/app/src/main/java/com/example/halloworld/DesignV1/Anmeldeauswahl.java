@@ -8,9 +8,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.halloworld.DesignV1.Email.EmailAnmeldung;
@@ -57,6 +59,7 @@ public class Anmeldeauswahl extends AppCompatActivity {
     UserLocalStore userLocalStore;
     FirebaseAuth firebaseAuth;
     String userTocken;
+    String nickname;
 
    AuthCredential FBAuthCredential;
     //google
@@ -119,33 +122,34 @@ public class Anmeldeauswahl extends AppCompatActivity {
                                         userLocalStore.setUserLoggedIn(true);
                                         FirebaseUser user = firebaseAuth.getCurrentUser();
                                         userLocalStore.storeLogintype(LoginType.google);
-
                                         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
                                             @Override
                                             public void onComplete(@NonNull Task<String> task) {
                                                 userTocken= task.getResult();
-                                                User person = new User(user.getDisplayName(), user.getEmail(), user.getEmail(), 1, user.getUid(), LoginType.google.toString(),"null",userTocken);
-                                                userLocalStore.storeUserData(person);
-                                                try {
-                                                    FirebaseDatabase.getInstance().getReference().child("User").child(generateEmailkey(user.getEmail())).setValue(person);
-                                                }catch (Exception e){
-                                                    showDialogBox(e.getMessage());
-                                                }
-                                                if(requestCode==200){
-                                                    user.linkWithCredential(FBAuthCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task<AuthResult> task) {
-                                                            // Redirect to profile activty
-                                                            Intent intent = new Intent(Anmeldeauswahl.this, HomeScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                            startActivity(intent);
-                                                            finish();
-                                                        }
-                                                    });
-                                                }
-                                                // Redirect to profile activty
-                                                Intent intent = new Intent(Anmeldeauswahl.this, HomeScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                startActivity(intent);
-                                                finish();
+                                                SaveUserAndRedirectToHome(requestCode,user,LoginType.google);
+//                                                User person = new User(user.getDisplayName(), user.getEmail(), user.getEmail(), 1, user.getUid(), LoginType.google.toString(),"null",userTocken);
+//                                                userLocalStore.storeUserData(person);
+//                                                try {
+//                                                    FirebaseDatabase.getInstance().getReference().child("User").child(generateEmailkey(user.getEmail())).setValue(person);
+//                                                }catch (Exception e){
+//                                                    showDialogBox(e.getMessage());
+//                                                }
+//                                                if(requestCode==200){
+//                                                    user.linkWithCredential(FBAuthCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                                                        @Override
+//                                                        public void onComplete(@NonNull Task<AuthResult> task) {
+//                                                            // Redirect to profile activty
+//                                                            Intent intent = new Intent(Anmeldeauswahl.this, HomeScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                                            startActivity(intent);
+//                                                            finish();
+//                                                        }
+//                                                    });
+//                                                }else {
+//                                                    // Redirect to profile activty
+//                                                    Intent intent = new Intent(Anmeldeauswahl.this, HomeScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                                    startActivity(intent);
+//                                                    finish();
+//                                                }
                                             }
                                         });
 
@@ -268,14 +272,16 @@ public class Anmeldeauswahl extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<String> task) {
                             userTocken= task.getResult();
-                            User person = new User(user.getDisplayName(), user.getEmail(), user.getEmail(), -1, user.getUid(), LoginType.facebook.toString(),null,userTocken);
 
-                            userLocalStore.storeUserData(person );
-                            FirebaseDatabase.getInstance().getReference("User").child(generateEmailkey(user.getEmail())).setValue(person);
-
-                            Intent intent = new Intent(Anmeldeauswahl.this, HomeScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            finish();
+                            SaveUserAndRedirectToHome(100,user,LoginType.facebook);
+//                            User person = new User(user.getDisplayName(), user.getEmail(), user.getEmail(), -1, user.getUid(), LoginType.facebook.toString(),null,userTocken);
+//
+//                            userLocalStore.storeUserData(person );
+//                            FirebaseDatabase.getInstance().getReference("User").child(generateEmailkey(user.getEmail())).setValue(person);
+//
+//                            Intent intent = new Intent(Anmeldeauswahl.this, HomeScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                            startActivity(intent);
+//                            finish();
                         }
                     });
 
@@ -458,5 +464,49 @@ public class Anmeldeauswahl extends AppCompatActivity {
         senderResponseEmailkey = senderResponseEmailFirstPart+senderResponseEmailLastPart;
         return senderResponseEmailkey;*/
         return email.replace(".","&");
+    }
+
+    public String SaveUserAndRedirectToHome(int requestCode,FirebaseUser user,LoginType loginType){
+
+        AlertDialog.Builder myDialog = new AlertDialog.Builder(Anmeldeauswahl.this);
+        myDialog.setTitle("Bitte gebe deinen Nick Namen ein");
+
+        // Dialogbox zum abfragen des Nick Names
+        final EditText nicknameInput = new EditText(Anmeldeauswahl.this);
+        nicknameInput.setText(user.getDisplayName());
+        nicknameInput.setInputType(InputType.TYPE_CLASS_TEXT);
+        myDialog.setView(nicknameInput);
+        myDialog.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                nickname=nicknameInput.getText().toString();
+                User person = new User(user.getDisplayName(), user.getEmail(), user.getEmail(), 1, user.getUid(), LoginType.google.toString(),nickname,userTocken);
+                userLocalStore.storeUserData(person);
+                try {
+                    FirebaseDatabase.getInstance().getReference().child("User").child(generateEmailkey(user.getEmail())).setValue(person);
+                }catch (Exception e){
+                    showDialogBox(e.getMessage());
+                }
+                if(requestCode==200){
+                    user.linkWithCredential(FBAuthCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            // Redirect to profile activty
+                            Intent intent = new Intent(Anmeldeauswahl.this, HomeScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+                }else {
+                    // Redirect to profile activty
+                    Intent intent = new Intent(Anmeldeauswahl.this, HomeScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
+        AlertDialog alert = myDialog.create();
+        alert.show();
+        return nickname;
     }
 }

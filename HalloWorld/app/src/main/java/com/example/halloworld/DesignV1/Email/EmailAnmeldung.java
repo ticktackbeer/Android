@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -16,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.halloworld.DesignV1.Anmeldeauswahl;
 import com.example.halloworld.DesignV1.HomeScreen;
 import com.example.halloworld.Enum.LoginType;
 import com.example.halloworld.Model.User;
@@ -40,6 +43,7 @@ public class EmailAnmeldung extends AppCompatActivity {
     UserLocalStore userLocalStore;
     String userTocken;
     TextView registration;
+    String nickname;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,19 +94,20 @@ public class EmailAnmeldung extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<String> task) {
                                             userTocken= task.getResult();
-                                            User person = new User(user.getDisplayName(), user.getEmail(), user.getEmail(), -1, user.getUid(), LoginType.email.toString(),"null",userTocken);
-                                            userLocalStore.storeUserData(person );
-                                            FirebaseDatabase.getInstance().getReference("User").child(generateEmailkey(user.getEmail())).setValue(person);
-                                            // Redirect to profile activty
-                                            if(!user.isEmailVerified()){
-                                                Intent intent = new Intent(EmailAnmeldung.this, EmailVerification.class);
-                                                startActivity(intent);
-                                                finish();
-                                            }else{
-                                                Intent intent = new Intent(EmailAnmeldung.this, HomeScreen.class);
-                                                startActivity(intent);
-                                                finish();
-                                            }
+                                            SaveUserAndRedirectToHome(100,user,LoginType.email);
+//                                            User person = new User( user.getEmail(), user.getEmail(), -1, user.getUid(), LoginType.email.toString(),"null",userTocken);
+//                                            userLocalStore.storeUserData(person );
+//                                            FirebaseDatabase.getInstance().getReference("User").child(generateEmailkey(user.getEmail())).setValue(person);
+//                                            // Redirect to profile activty
+//                                            if(!user.isEmailVerified()){
+//                                                Intent intent = new Intent(EmailAnmeldung.this, EmailVerification.class);
+//                                                startActivity(intent);
+//                                                finish();
+//                                            }else{
+//                                                Intent intent = new Intent(EmailAnmeldung.this, HomeScreen.class);
+//                                                startActivity(intent);
+//                                                finish();
+//                                            }
 
                                         }
                                     });
@@ -141,5 +146,44 @@ public class EmailAnmeldung extends AppCompatActivity {
         dialogBuilder.setMessage(text);
         dialogBuilder.setPositiveButton("ok", null);
         dialogBuilder.show();
+    }
+
+    public String SaveUserAndRedirectToHome(int requestCode,FirebaseUser user,LoginType loginType){
+
+        AlertDialog.Builder myDialog = new AlertDialog.Builder(EmailAnmeldung.this);
+        myDialog.setTitle("Bitte gebe deinen Nick Namen ein");
+
+        // Dialogbox zum abfragen des Nick Names
+        final EditText nicknameInput = new EditText(EmailAnmeldung.this);
+        nicknameInput.setText(user.getDisplayName());
+        nicknameInput.setInputType(InputType.TYPE_CLASS_TEXT);
+        myDialog.setView(nicknameInput);
+        myDialog.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                nickname=nicknameInput.getText().toString();
+                User person = new User(user.getDisplayName(), user.getEmail(), user.getEmail(), 1, user.getUid(), LoginType.google.toString(),nickname,userTocken);
+                userLocalStore.storeUserData(person);
+                try {
+                    FirebaseDatabase.getInstance().getReference().child("User").child(generateEmailkey(user.getEmail())).setValue(person);
+                }catch (Exception e){
+                    showErrorMessage(e.getMessage());
+                }
+
+                if(!user.isEmailVerified()){
+                    Intent intent = new Intent(EmailAnmeldung.this, EmailVerification.class);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    Intent intent = new Intent(EmailAnmeldung.this, HomeScreen.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+            }
+        });
+        AlertDialog alert = myDialog.create();
+        alert.show();
+        return nickname;
     }
 }
