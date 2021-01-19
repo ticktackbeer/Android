@@ -2,11 +2,15 @@ package com.example.halloworld.DesignV1;
 
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
+
+import com.example.halloworld.DesignV1.Email.EmailAnmeldung;
+import com.example.halloworld.DesignV1.Email.EmailStartScreen;
 import com.example.halloworld.DesignV1.Service.PushNotificationSenderService;
 import com.example.halloworld.R;
 import com.example.halloworld.Utility.UserLocalStore;
@@ -62,6 +66,25 @@ public class HomeScreen extends NavigationMenu {
                 }
             }
         });
+
+        // Floating Action Button - Freund hinzufügen
+        fab_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeScreen.this, FreundHinzufuegen.class);
+                startActivity(intent);
+            }
+        });
+
+        // Floating Action Button - Freundes Liste
+        fab_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeScreen.this, FreundesListe.class);
+                startActivity(intent);
+            }
+        });
+
 
         trinkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
