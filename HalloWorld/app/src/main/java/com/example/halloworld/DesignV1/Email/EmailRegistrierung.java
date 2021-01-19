@@ -95,7 +95,7 @@ public class EmailRegistrierung extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<String> task) {
                                     userTocken= task.getResult();
-                                    User person = new User(user.getDisplayName(), inputName.getText().toString(), user.getEmail(), -1, user.getUid(), LoginType.email.toString(),null,userTocken);
+                                    User person = new User(user.getDisplayName(), inputName.getText().toString(), user.getEmail(), -1, user.getUid(), LoginType.email.toString(),"null",userTocken);
                                     userLocalStore.storeUserData(person );
                                     FirebaseDatabase.getInstance().getReference("User").child(generateEmailkey(user.getEmail())).setValue(person);
 

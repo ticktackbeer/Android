@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.halloworld.Adapter.AdapterClassSearchBar;
+import com.example.halloworld.DesignV1.Service.PushNotificationSenderService;
 import com.example.halloworld.Model.User;
 import com.example.halloworld.PushNotification;
 import com.example.halloworld.R;
@@ -124,7 +125,7 @@ public class FreundesListe extends NavigationMenu implements AdapterClassSearchB
         friendRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new PushNotification(myUserInfo,user,FreundesListe.this).sendFriendRequestNotification();
+                new PushNotificationSenderService(FreundesListe.this,myUserInfo,user).sendFriendRequestNotification();
             }
         });
 
