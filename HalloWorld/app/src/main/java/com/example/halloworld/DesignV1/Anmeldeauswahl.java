@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +12,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.halloworld.DesignV1.Email.EmailAnmeldung;
 import com.example.halloworld.DesignV1.Email.EmailStartScreen;
 import com.example.halloworld.Enum.LoginType;
@@ -475,8 +475,16 @@ public class Anmeldeauswahl extends AppCompatActivity {
         final EditText nicknameInput = new EditText(Anmeldeauswahl.this);
         nicknameInput.setText(user.getDisplayName());
         nicknameInput.setInputType(InputType.TYPE_CLASS_TEXT);
-        myDialog.setView(nicknameInput);
-        myDialog.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        final TextView textView = new TextView(Anmeldeauswahl.this);
+        textView.setText("Keine Sorge, du kannst ihn jederzeit ändern");
+
+        LinearLayout linearLayout = new LinearLayout(Anmeldeauswahl.this);
+        linearLayout.setMinimumHeight(200);
+        linearLayout.addView(nicknameInput);
+        linearLayout.addView(textView);
+        myDialog.setView(linearLayout);
+
+        myDialog.setCancelable(false).setPositiveButton("Name Setzen", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 nickname=nicknameInput.getText().toString();

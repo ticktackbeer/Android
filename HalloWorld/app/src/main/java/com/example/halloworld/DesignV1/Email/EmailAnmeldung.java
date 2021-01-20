@@ -16,6 +16,7 @@ import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.halloworld.DesignV1.Anmeldeauswahl;
@@ -34,6 +35,8 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import org.w3c.dom.Text;
 
 public class EmailAnmeldung extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
@@ -157,8 +160,15 @@ public class EmailAnmeldung extends AppCompatActivity {
         final EditText nicknameInput = new EditText(EmailAnmeldung.this);
         nicknameInput.setText(user.getDisplayName());
         nicknameInput.setInputType(InputType.TYPE_CLASS_TEXT);
-        myDialog.setView(nicknameInput);
-        myDialog.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        final TextView textView = new TextView(EmailAnmeldung.this);
+        textView.setText("Keine Sorge, du kannst ihn jederzeit ändern");
+
+        LinearLayout linearLayout = new LinearLayout(EmailAnmeldung.this);
+        linearLayout.setMinimumHeight(200);
+        linearLayout.addView(nicknameInput);
+        linearLayout.addView(textView);
+        myDialog.setView(linearLayout);
+        myDialog.setCancelable(false).setPositiveButton("Name Setzen", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 nickname=nicknameInput.getText().toString();
