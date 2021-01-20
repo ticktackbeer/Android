@@ -1,30 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+    tools:showIn="navigation_view" >
 
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
+            android:id="@+id/nav_home_screen"
             android:icon="@drawable/ic_home"
-            android:title="Home" />
+            android:title="Home"
+            />
 
         <item
-            android:id="@+id/nav_maps"
+            android:id="@+id/nav_karte"
             android:icon="@drawable/ic_maps"
-            android:title="Karte" />
+            android:title="Karte"
+            />
     </group>
 
-    <item android:title="Freunde">
+    <item android:title="Freunde" >
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/nav_person_add"
+                    android:id="@+id/nav_freundhinzufuegen"
                     android:icon="@drawable/ic_person_add"
                     android:title="Freund Hinzufügen" />
                 <item
-                    android:id="@+id/nav_people"
+                    android:id="@+id/nav_freundesliste"
                     android:icon="@drawable/ic_people"
                     android:title="Freunde" />
 
@@ -36,12 +38,12 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/nav_profile"
+                    android:id="@+id/nav_profil"
                     android:icon="@drawable/ic_profile"
-                    android:title="Profile" />
+                    android:title="Profil" />
 
                 <item
-                    android:id="@+id/nav_logout"
+                    android:id="@+id/nav_ausloggen"
                     android:icon="@drawable/ic_logut"
                     android:title="Logout" />
             </group>

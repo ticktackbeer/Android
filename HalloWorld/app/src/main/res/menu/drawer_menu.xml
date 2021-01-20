@@ -8,12 +8,14 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
-            android:title="Home" />
+            android:title="Home"
+            />
 
         <item
             android:id="@+id/nav_maps"
             android:icon="@drawable/ic_maps"
-            android:title="Karte" />
+            android:title="Karte"
+            />
     </group>
 
     <item android:title="Freunde">

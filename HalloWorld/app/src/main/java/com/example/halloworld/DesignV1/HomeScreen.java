@@ -32,7 +32,7 @@ public class HomeScreen extends NavigationMenu {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         toolbar= findViewById(R.id.toolbar);
-        super.setDrawerLayout(this,toolbar,R.id.nav_home);
+        super.setDrawerLayout(this,toolbar,R.id.nav_home_screen);
 
         userLocalStore = new UserLocalStore(this);
         trinkBtn = findViewById(R.id.imagebtn_Trinken);

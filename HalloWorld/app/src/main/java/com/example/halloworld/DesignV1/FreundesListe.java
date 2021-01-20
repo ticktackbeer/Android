@@ -45,7 +45,7 @@ public class FreundesListe extends NavigationMenu implements AdapterClassSearchB
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_freundes_liste);
         toolbar= findViewById(R.id.toolbar);
-        super.setDrawerLayout(this,toolbar,R.id.nav_home);
+        super.setDrawerLayout(this,toolbar,R.id.nav_freundesliste);
 
         databaseReference= FirebaseDatabase.getInstance().getReference().child("User");
         recyclerView = findViewById(R.id.rv);

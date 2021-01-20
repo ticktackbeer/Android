@@ -3,7 +3,9 @@ package com.example.halloworld.DesignV1.Email;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +29,7 @@ import com.example.halloworld.R;
 import com.example.halloworld.Utility.UserLocalStore;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.internal.FlowLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
@@ -151,23 +154,17 @@ public class EmailAnmeldung extends AppCompatActivity {
         dialogBuilder.show();
     }
 
-    public String SaveUserAndRedirectToHome(int requestCode,FirebaseUser user,LoginType loginType){
+    @SuppressLint("RestrictedApi")
+    public String SaveUserAndRedirectToHome(int requestCode, FirebaseUser user, LoginType loginType){
 
         AlertDialog.Builder myDialog = new AlertDialog.Builder(EmailAnmeldung.this);
-        myDialog.setTitle("Bitte gebe deinen Nick Namen ein");
+        myDialog.setTitle("Bitte gebe deinen Spitznamen ein");
 
+        final View customLayout = getLayoutInflater().inflate(R.layout.nickname_dialog,null);
         // Dialogbox zum abfragen des Nick Names
-        final EditText nicknameInput = new EditText(EmailAnmeldung.this);
+        final EditText nicknameInput = customLayout.findViewById(R.id.dialog_input);
         nicknameInput.setText(user.getDisplayName());
-        nicknameInput.setInputType(InputType.TYPE_CLASS_TEXT);
-        final TextView textView = new TextView(EmailAnmeldung.this);
-        textView.setText("Keine Sorge, du kannst ihn jederzeit ändern");
-
-        LinearLayout linearLayout = new LinearLayout(EmailAnmeldung.this);
-        linearLayout.setMinimumHeight(200);
-        linearLayout.addView(nicknameInput);
-        linearLayout.addView(textView);
-        myDialog.setView(linearLayout);
+        myDialog.setView(customLayout);
         myDialog.setCancelable(false).setPositiveButton("Name Setzen", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

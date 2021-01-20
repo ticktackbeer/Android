@@ -469,21 +469,13 @@ public class Anmeldeauswahl extends AppCompatActivity {
     public String SaveUserAndRedirectToHome(int requestCode,FirebaseUser user,LoginType loginType){
 
         AlertDialog.Builder myDialog = new AlertDialog.Builder(Anmeldeauswahl.this);
-        myDialog.setTitle("Bitte gebe deinen Nick Namen ein");
+        myDialog.setTitle("Bitte gebe deinen Spitznamen ein");
 
+        final View customLayout = getLayoutInflater().inflate(R.layout.nickname_dialog,null);
         // Dialogbox zum abfragen des Nick Names
-        final EditText nicknameInput = new EditText(Anmeldeauswahl.this);
+        final EditText nicknameInput = customLayout.findViewById(R.id.dialog_input);
         nicknameInput.setText(user.getDisplayName());
-        nicknameInput.setInputType(InputType.TYPE_CLASS_TEXT);
-        final TextView textView = new TextView(Anmeldeauswahl.this);
-        textView.setText("Keine Sorge, du kannst ihn jederzeit ändern");
-
-        LinearLayout linearLayout = new LinearLayout(Anmeldeauswahl.this);
-        linearLayout.setMinimumHeight(200);
-        linearLayout.addView(nicknameInput);
-        linearLayout.addView(textView);
-        myDialog.setView(linearLayout);
-
+        myDialog.setView(customLayout);
         myDialog.setCancelable(false).setPositiveButton("Name Setzen", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

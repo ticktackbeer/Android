@@ -62,14 +62,14 @@ public class NavigationMenu extends AppCompatActivity implements NavigationView.
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.nav_maps:
+            case R.id.nav_karte:
                 if (nav_id != R.id.nav_maps) {
                     Intent intent = new Intent(this, Karte.class);
                     startActivity(intent);
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
-            case R.id.nav_logout:
+            case R.id.nav_ausloggen:
                 quickLogout();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
@@ -78,23 +78,24 @@ public class NavigationMenu extends AppCompatActivity implements NavigationView.
                 startActivity(intent);
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
-            case R.id.nav_profile:
+            case R.id.nav_profil:
                 Intent intent1 = new Intent(this, Profil.class);
                 startActivity(intent1);
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
-            case R.id.nav_person_add:
-//                Intent intent2 = new Intent(this, SearchBar.class);
+            case R.id.nav_freundhinzufuegen:
+//                Intent intent2 = new Intent(this, SearchBar.c
+//                lass);
                 Intent intent2 = new Intent(this, FreundHinzufuegen.class);
                 startActivity(intent2);
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
-            case R.id.nav_home:
+            case R.id.nav_home_screen:
                 Intent intent3 = new Intent(this, HomeScreen.class);
                 startActivity(intent3);
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
-            case R.id.nav_people:
+            case R.id.nav_freundesliste:
                 Intent intent4 = new Intent(this, FreundesListe.class);
                 startActivity(intent4);
                 drawerLayout.closeDrawer(GravityCompat.START);
