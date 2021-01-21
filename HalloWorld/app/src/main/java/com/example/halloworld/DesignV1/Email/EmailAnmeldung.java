@@ -154,7 +154,7 @@ public class EmailAnmeldung extends AppCompatActivity {
         dialogBuilder.show();
     }
 
-    @SuppressLint("RestrictedApi")
+
     public String SaveUserAndRedirectToHome(int requestCode, FirebaseUser user, LoginType loginType){
 
         AlertDialog.Builder myDialog = new AlertDialog.Builder(EmailAnmeldung.this);
@@ -169,7 +169,7 @@ public class EmailAnmeldung extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 nickname=nicknameInput.getText().toString();
-                User person = new User(user.getDisplayName(), user.getEmail(), user.getEmail(), 1, user.getUid(), LoginType.google.toString(),nickname,userTocken);
+                User person = new User(user.getDisplayName(), user.getEmail(), user.getEmail(), 1, user.getUid(), loginType.toString(),nickname,userTocken);
                 userLocalStore.storeUserData(person);
                 try {
                     FirebaseDatabase.getInstance().getReference().child("User").child(generateEmailkey(user.getEmail())).setValue(person);

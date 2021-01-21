@@ -3,6 +3,9 @@ package com.example.halloworld.DesignV1;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -11,6 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.halloworld.Enum.LoginType;
+import com.example.halloworld.Model.User;
 import com.example.halloworld.PushNotification;
 import com.example.halloworld.R;
 import com.example.halloworld.Utility.UserLocalStore;
@@ -41,6 +45,7 @@ public class NavigationMenu extends AppCompatActivity implements NavigationView.
         this.nav_id = nav_id;
         drawerLayout = findViewById(R.id.navigation_layout);
         navigationView = findViewById(R.id.navigation_view);
+
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this.activity, drawerLayout, toolbar,
@@ -54,8 +59,10 @@ public class NavigationMenu extends AppCompatActivity implements NavigationView.
             navigationView.setCheckedItem(nav_id);
         }
 
-        userLocalStore = new UserLocalStore(this.activity);
+        userLocalStore = new UserLocalStore(this);
 
+        ((TextView)navigationView.getHeaderView(0).findViewById(R.id.navigationheaderemail)).setText(userLocalStore.getLoggedInUser().getEmail());
+        ((TextView)navigationView.getHeaderView(0).findViewById(R.id.navigationheadername)).setText(userLocalStore.getLoggedInUser().getNickname());
 
     }
 

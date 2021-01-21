@@ -480,7 +480,7 @@ public class Anmeldeauswahl extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 nickname=nicknameInput.getText().toString();
-                User person = new User(user.getDisplayName(), user.getEmail(), user.getEmail(), 1, user.getUid(), LoginType.google.toString(),nickname,userTocken);
+                User person = new User(user.getDisplayName(), user.getEmail(), user.getEmail(), 1, user.getUid(), loginType.toString(),nickname,userTocken);
                 userLocalStore.storeUserData(person);
                 try {
                     FirebaseDatabase.getInstance().getReference().child("User").child(generateEmailkey(user.getEmail())).setValue(person);
@@ -492,14 +492,14 @@ public class Anmeldeauswahl extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             // Redirect to profile activty
-                            Intent intent = new Intent(Anmeldeauswahl.this, HomeScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            Intent intent = new Intent(Anmeldeauswahl.this, HomeScreen.class);
                             startActivity(intent);
                             finish();
                         }
                     });
                 }else {
                     // Redirect to profile activty
-                    Intent intent = new Intent(Anmeldeauswahl.this, HomeScreen.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    Intent intent = new Intent(Anmeldeauswahl.this, HomeScreen.class);
                     startActivity(intent);
                     finish();
                 }
