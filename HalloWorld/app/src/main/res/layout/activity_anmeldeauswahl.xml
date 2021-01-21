@@ -59,7 +59,7 @@
         android:layout_width="350sp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="25dp"
-        android:backgroundTint="@color/com_facebook_blue"
+        android:backgroundTint="@color/com_facebook_messenger_blue"
         android:drawableLeft="@drawable/ic_facebook_logo_2019"
         android:paddingLeft="90dp"
         android:text="Weiter mit Facebook"
