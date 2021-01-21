@@ -31,7 +31,7 @@ public class AdapterClassSearchBar extends RecyclerView.Adapter<AdapterClassSear
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.id.setText(list.get(position).getName());
+        holder.id.setText(list.get(position).getNickname());
         holder.description.setText(list.get(position).getEmail());
     }
 
