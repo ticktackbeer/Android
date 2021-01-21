@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.HalloWorld.NoActionBar">
-        <activity android:name=".DesignV1.Email.EmailVerification"></activity>
+        <activity android:name=".DesignV1.FreundHinzufuegenUebersicht"></activity>
+        <activity android:name=".DesignV1.Email.EmailVerification" />
         <activity android:name=".DesignV1.Email.EmailStartScreen" />
         <activity android:name=".DesignV1.Email.EmailAnmeldung" />
         <activity android:name=".DesignV1.Ueber" />
@@ -39,7 +40,6 @@
             android:name=".DesignV1.Service.DirectReplyService"
             android:enabled="true"
             android:exported="true" />
-
         <service
             android:name=".DesignV1.Service.FriendRequestService"
             android:enabled="true"
@@ -75,6 +75,7 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
         <service
             android:name=".DesignV1.Service.PushNotificationReciverService"
             android:exported="false">

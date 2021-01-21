@@ -13,8 +13,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.halloworld.Adapter.AdapterClassFriends;
 import com.example.halloworld.Adapter.AdapterClassSearchBar;
 import com.example.halloworld.DesignV1.Service.PushNotificationSenderService;
+import com.example.halloworld.Friends;
 import com.example.halloworld.Model.User;
 import com.example.halloworld.PushNotification;
 import com.example.halloworld.R;
@@ -29,30 +31,25 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class FreundesListe extends NavigationMenu implements AdapterClassSearchBar.SearchbarClickInterface {
-
+public class FreundesListe extends NavigationMenu implements AdapterClassFriends.FriendsClickInterface {
     DatabaseReference databaseReference;
-    ArrayList<User> userArrayList;
+    ArrayList<String> userArrayList;
     RecyclerView recyclerView;
-    SearchView searchView;
     private Toolbar toolbar;
-    Button friendRequest;
-    ArrayList<User> currentUserList;
-    User myUserInfo;
     SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_freundes_liste);
         toolbar= findViewById(R.id.toolbar);
+        toolbar.setTitle("");
         super.setDrawerLayout(this,toolbar,R.id.nav_freundesliste);
 
-        databaseReference= FirebaseDatabase.getInstance().getReference().child("User");
+        FirebaseUser user =FirebaseAuth.getInstance().getCurrentUser();
+        databaseReference= FirebaseDatabase.getInstance().getReference().child("Friend").child(generateEmailkey(user.getEmail()));
         recyclerView = findViewById(R.id.rv);
-        searchView= findViewById(R.id.searchview);
-        searchView.setIconifiedByDefault(false);
-        friendRequest=findViewById(R.id.SearchfriendRequestBtn);
         swipeRefreshLayout= findViewById(R.id.swipeLayout);
+
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -76,15 +73,15 @@ public class FreundesListe extends NavigationMenu implements AdapterClassSearchB
                         userArrayList = new ArrayList<>();
                         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                         for (DataSnapshot item: snapshot.getChildren()) {
-                            User user = item.getValue(User.class);
+                            String user = item.getValue().toString();
                             userArrayList.add(user);
-                            if(user.getEmail().equals(firebaseUser.getEmail())){
+                            /*if(user.getEmail().equals(firebaseUser.getEmail())){
                                 myUserInfo=user;
-                            }
+                            }*/
                         }
                         Log.i("user NIIIIAAAATTTT","Size Liste "+ userArrayList.toString());
-                        //AdapterClassSearchBar adapterClass = new AdapterClassSearchBar(userArrayList);
-                        //recyclerView.setAdapter(adapterClass);
+                        AdapterClassFriends adapterClass = new AdapterClassFriends(userArrayList,FreundesListe.this);
+                        recyclerView.setAdapter(adapterClass);
                     }
                 }
 
@@ -94,41 +91,15 @@ public class FreundesListe extends NavigationMenu implements AdapterClassSearchB
                 }
             });
         }
-        if(searchView!=null){
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    friendRequest.setEnabled(false);
-                    return false;
-                }
-
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    //enable button is on onSearchbarClickListener methode
-                    friendRequest.setEnabled(false);
-                    search(newText.trim());
-                    return true;
-                }
-            });
-        }
     }
 
     @Override
-    public void onSearchbarClickListener(int position) {
+    public void onFriendsClickListener(int position) {
         // hier das machen was ich will / in sarchbar schreiben
         //userArrayList.get(position);
-        User user = currentUserList.get(position);
-        searchView.setQuery(user.getEmail(),false);
+        //String user = currentUserList.get(position);
+        //searchView.setQuery(user.getEmail(),false);
         Toast.makeText(this, "position: "+position, Toast.LENGTH_SHORT).show();
-        friendRequest.setEnabled(true);
-
-        friendRequest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new PushNotificationSenderService(FreundesListe.this,myUserInfo,user).sendFriendRequestNotification();
-            }
-        });
-
 
     }
 
@@ -141,15 +112,15 @@ public class FreundesListe extends NavigationMenu implements AdapterClassSearchB
                         userArrayList = new ArrayList<>();
                         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                         for (DataSnapshot item: snapshot.getChildren()) {
-                            User user = item.getValue(User.class);
+                            String user = item.getValue().toString();
                             userArrayList.add(user);
-                            if(user.getEmail().equals(firebaseUser.getEmail())){
+                            /*if(user.getEmail().equals(firebaseUser.getEmail())){
                                 myUserInfo=user;
-                            }
+                            }*/
                         }
                         Log.i("user NIIIIAAAATTTT","Size Liste "+ userArrayList.toString());
-                        //AdapterClassSearchBar adapterClass = new AdapterClassSearchBar(userArrayList);
-                        //recyclerView.setAdapter(adapterClass);
+                        AdapterClassFriends adapterClass = new AdapterClassFriends(userArrayList,FreundesListe.this);
+                        recyclerView.setAdapter(adapterClass);
                     }
                 }
 
@@ -161,21 +132,8 @@ public class FreundesListe extends NavigationMenu implements AdapterClassSearchB
         }
     }
 
-    private void search(String s){
-        currentUserList = new ArrayList<>();
-        if(!s.isEmpty()){
-            for (User item:userArrayList) {
-                if(item.getEmail().toLowerCase().contains(s.toLowerCase())){
-                    currentUserList.add(item);
-                }
-            }
-            AdapterClassSearchBar adapterClassSearchBar = new AdapterClassSearchBar(currentUserList,this);
-            recyclerView.setAdapter(adapterClassSearchBar);
-        }else{
-            currentUserList= new ArrayList<>();
-            AdapterClassSearchBar adapterClassSearchBar = new AdapterClassSearchBar(currentUserList,this);
-            recyclerView.setAdapter(adapterClassSearchBar);
-        }
-
+    public String generateEmailkey(String email){
+        return email.replace(".","&");
     }
+
 }
