@@ -8,12 +8,14 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.halloworld.R;
 
@@ -38,12 +40,18 @@ public class Wilkommen extends AppCompatActivity {
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View view) {
+                Toast.makeText(Wilkommen.this, "Click on Link", Toast.LENGTH_SHORT).show();
+            }
 
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setColor(Color.YELLOW);
             }
         };
         ss.setSpan(clickableSpan,52,87, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ss.setSpan(fcsBlue,52,87, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
+        //ss.setSpan(fcsBlue,52,87, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView.setHighlightColor(Color.TRANSPARENT);
         textView.setText(ss);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
 

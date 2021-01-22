@@ -35,6 +35,13 @@ public class HomeScreen extends NavigationMenu {
         super.setDrawerLayout(this,toolbar,R.id.nav_home_screen);
 
         userLocalStore = new UserLocalStore(this);
+        if(userLocalStore.isUserLoggedIn()){
+            // wenn der User beim NickNamen dialog die app schließt, hat er keine email usw im User objekt
+            quickLogout();
+            Intent intent = new Intent(this,Anmeldeauswahl.class);
+            startActivity(intent);
+        }
+       
         trinkBtn = findViewById(R.id.imagebtn_Trinken);
 
         // Floating Action Button im HomeScreen

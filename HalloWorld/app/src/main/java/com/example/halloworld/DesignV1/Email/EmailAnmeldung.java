@@ -27,6 +27,9 @@ import com.example.halloworld.Enum.LoginType;
 import com.example.halloworld.Model.User;
 import com.example.halloworld.R;
 import com.example.halloworld.Utility.UserLocalStore;
+import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.internal.FlowLayout;
@@ -55,7 +58,12 @@ public class EmailAnmeldung extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_email_anmeldung);
 
-        userLocalStore = new UserLocalStore(this);
+        if(userLocalStore.isUserLoggedIn()){
+            // wenn der User beim NickNamen dialog die app schließt, hat er keine email usw im User objekt
+            quickLogout();
+            Intent intent = new Intent(this,Anmeldeauswahl.class);
+            startActivity(intent);
+        }
         firebaseAuth = FirebaseAuth.getInstance();
         email = getIntent().getStringExtra("email");
         password = findViewById(R.id.RegistrationPassword);
@@ -192,5 +200,16 @@ public class EmailAnmeldung extends AppCompatActivity {
         AlertDialog alert = myDialog.create();
         alert.show();
         return nickname;
+    }
+
+    public void quickLogout(){
+        
+        FirebaseAuth.getInstance().signOut();
+        GoogleSignIn.getClient(EmailAnmeldung.this, GoogleSignInOptions.DEFAULT_SIGN_IN).signOut();
+        LoginManager.getInstance().logOut();
+        userLocalStore.clearUserData();
+        Intent intent = new Intent(EmailAnmeldung.this, Anmeldeauswahl.class);
+        startActivity(intent);
+        finish();
     }
 }

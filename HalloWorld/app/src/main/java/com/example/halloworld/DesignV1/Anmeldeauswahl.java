@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
@@ -91,7 +92,6 @@ public class Anmeldeauswahl extends AppCompatActivity {
 //------Clickable Textpart Kontakt Salud Amigos-----------------------------------------------------
 
         TextView textView = findViewById(R.id.text_Kontakt);
-
         String text = "Hast du Probleme beim Einloggen? Salud Amigos kontaktieren";
 
         SpannableString ss = new SpannableString(text);
@@ -102,12 +102,18 @@ public class Anmeldeauswahl extends AppCompatActivity {
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View view) {
+                Toast.makeText(Anmeldeauswahl.this, "Click on Link", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void updateDrawState(@NonNull TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setColor(Color.YELLOW);
 
             }
         };
         ss.setSpan(clickableSpan,33,58, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ss.setSpan(fcsBlue,33,58, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
+        textView.setHighlightColor(Color.TRANSPARENT);
         textView.setText(ss);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
 
