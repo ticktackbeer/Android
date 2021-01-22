@@ -6,8 +6,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -81,6 +87,32 @@ public class Anmeldeauswahl extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anmeldeauswahl);
+
+//------Clickable Textpart Kontakt Salud Amigos-----------------------------------------------------
+
+        TextView textView = findViewById(R.id.text_Kontakt);
+
+        String text = "Hast du Probleme beim Einloggen? Salud Amigos kontaktieren";
+
+        SpannableString ss = new SpannableString(text);
+
+        // Farbe
+        ForegroundColorSpan fcsBlue = new ForegroundColorSpan(Color.YELLOW);
+        // Klick
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View view) {
+
+            }
+        };
+        ss.setSpan(clickableSpan,33,58, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(fcsBlue,33,58, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        textView.setText(ss);
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+
+//--------------------------------------------------------------------------------------------------
+
         userLocalStore = new UserLocalStore(this);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -509,4 +541,6 @@ public class Anmeldeauswahl extends AppCompatActivity {
         alert.show();
         return nickname;
     }
+
+
 }

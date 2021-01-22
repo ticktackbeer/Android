@@ -48,6 +48,7 @@ public class Wilkommen extends AppCompatActivity {
         textView.setMovementMethod(LinkMovementMethod.getInstance());
 
 
+//      Button Fortsetzen
         fortsetzen = findViewById(R.id.button_Fortsetzen);
 
         fortsetzen.setOnClickListener(new View.OnClickListener() {
