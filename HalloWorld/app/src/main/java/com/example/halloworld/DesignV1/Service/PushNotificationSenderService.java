@@ -34,16 +34,16 @@ public class PushNotificationSenderService {
 
 
 
-    public PushNotificationSenderService(Context context,User userSenderRequest, User userSenderRequestResponse) {
+    public PushNotificationSenderService(Context context,User userSender, User userReciver) {
         this.context = context;
-        this.userSender = userSenderRequest;
-        this.userReciver = userSenderRequestResponse;
+        this.userSender = userSender;
+        this.userReciver = userReciver;
         requestQueue = Volley.newRequestQueue(context);
     }
 
-    public PushNotificationSenderService( Context context,User userSenderRequest) {
+    public PushNotificationSenderService( Context context,User userSender) {
         this.context = context;
-        this.userSender = userSenderRequest;
+        this.userSender = userSender;
         requestQueue = Volley.newRequestQueue(context);
     }
 
@@ -122,7 +122,6 @@ public class PushNotificationSenderService {
         newtitel = "Neue Freundschaftsanfrage";
         newbody = "Willst du " + userSender.getEmail() + " zu deiner Freundesliste hinzufügen";
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("User");
         JSONObject json = new JSONObject();
         try {
             json.put("to", userReciver.getUserToken());

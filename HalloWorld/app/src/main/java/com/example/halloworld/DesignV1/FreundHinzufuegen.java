@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.example.halloworld.Adapter.AdapterClassSearchBar;
 import com.example.halloworld.DesignV1.Service.PushNotificationSenderService;
+import com.example.halloworld.Model.FriendRequest;
+import com.example.halloworld.Model.FriendResponse;
 import com.example.halloworld.Model.User;
 import com.example.halloworld.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -124,6 +126,8 @@ public class FreundHinzufuegen extends NavigationMenu implements AdapterClassSea
         friendRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FirebaseDatabase.getInstance().getReference().child("FriendRequest").child(generateEmailkey(myUserInfo.getEmail())).child("Gesendet").child(generateEmailkey(user.getEmail())).setValue(new FriendRequest(user.getEmail(),user.getNickname()));
+                FirebaseDatabase.getInstance().getReference().child("FriendRequest").child(generateEmailkey(user.getEmail())).child("Empfangen").child(generateEmailkey(myUserInfo.getEmail())).setValue(new FriendResponse(myUserInfo.getEmail(),myUserInfo.getNickname()));
                 new PushNotificationSenderService(FreundHinzufuegen.this,myUserInfo,user).sendFriendRequestNotification();
             }
         });
@@ -176,5 +180,9 @@ public class FreundHinzufuegen extends NavigationMenu implements AdapterClassSea
             recyclerView.setAdapter(adapterClassSearchBar);
         }
 
+    }
+
+    public String generateEmailkey(String email){
+        return email.replace(".","&");
     }
 }
