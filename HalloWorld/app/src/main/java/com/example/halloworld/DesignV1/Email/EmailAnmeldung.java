@@ -58,12 +58,7 @@ public class EmailAnmeldung extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_email_anmeldung);
 
-        if(userLocalStore.isUserLoggedIn()){
-            // wenn der User beim NickNamen dialog die app schließt, hat er keine email usw im User objekt
-            quickLogout();
-            Intent intent = new Intent(this,Anmeldeauswahl.class);
-            startActivity(intent);
-        }
+        userLocalStore = new UserLocalStore(this);
         firebaseAuth = FirebaseAuth.getInstance();
         email = getIntent().getStringExtra("email");
         password = findViewById(R.id.RegistrationPassword);
@@ -101,7 +96,6 @@ public class EmailAnmeldung extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    userLocalStore.setUserLoggedIn(true);
                                     FirebaseUser user = firebaseAuth.getCurrentUser();
 
                                     FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
@@ -179,6 +173,7 @@ public class EmailAnmeldung extends AppCompatActivity {
                 nickname=nicknameInput.getText().toString();
                 User person = new User(user.getDisplayName(), user.getEmail(), user.getEmail(), 1, user.getUid(), loginType.toString(),nickname,userTocken);
                 userLocalStore.storeUserData(person);
+                userLocalStore.setUserLoggedIn(true);
                 try {
                     FirebaseDatabase.getInstance().getReference().child("User").child(generateEmailkey(user.getEmail())).setValue(person);
                 }catch (Exception e){
@@ -203,7 +198,7 @@ public class EmailAnmeldung extends AppCompatActivity {
     }
 
     public void quickLogout(){
-        
+
         FirebaseAuth.getInstance().signOut();
         GoogleSignIn.getClient(EmailAnmeldung.this, GoogleSignInOptions.DEFAULT_SIGN_IN).signOut();
         LoginManager.getInstance().logOut();

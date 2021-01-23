@@ -157,7 +157,6 @@ public class Anmeldeauswahl extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     //Chek condtion
                                     if (task.isSuccessful()) {
-                                        userLocalStore.setUserLoggedIn(true);
                                         FirebaseUser user = firebaseAuth.getCurrentUser();
                                         userLocalStore.storeLogintype(LoginType.google);
                                         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
@@ -303,7 +302,6 @@ public class Anmeldeauswahl extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    userLocalStore.setUserLoggedIn(true);
                     userLocalStore.storeLogintype(LoginType.facebook);
                     FirebaseUser user = firebaseAuth.getCurrentUser();
                     FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
@@ -520,6 +518,7 @@ public class Anmeldeauswahl extends AppCompatActivity {
                 nickname=nicknameInput.getText().toString();
                 User person = new User(user.getDisplayName(), user.getEmail(), user.getEmail(), 1, user.getUid(), loginType.toString(),nickname,userTocken);
                 userLocalStore.storeUserData(person);
+                userLocalStore.setUserLoggedIn(true);
                 try {
                     FirebaseDatabase.getInstance().getReference().child("User").child(generateEmailkey(user.getEmail())).setValue(person);
                 }catch (Exception e){
