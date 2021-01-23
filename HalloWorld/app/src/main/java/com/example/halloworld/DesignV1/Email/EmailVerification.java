@@ -6,12 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.halloworld.DesignV1.Anmeldeauswahl;
+import com.example.halloworld.DesignV1.HomeScreen;
 import com.example.halloworld.R;
 import com.example.halloworld.Utility.UserLocalStore;
 import com.facebook.login.LoginManager;
@@ -31,6 +33,7 @@ public class EmailVerification extends AppCompatActivity {
     //Button emailZurueksetzenBtn;
     UserLocalStore userLocalStore;
     String email;
+    Boolean isCancelByUser=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,13 +45,18 @@ public class EmailVerification extends AppCompatActivity {
         }else{
             email= getIntent().getStringExtra("email");
         }
-
+        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+        if(user.isEmailVerified()){
+            Intent intent = new Intent(EmailVerification.this, EmailAnmeldung.class);
+            startActivity(intent);
+            finish();
+        }
         String text = "Eine E-Mail wurde an "+email+" gesendet.Bitte benutze den Link in der Email, um deine Adresse zu bestätigen.Kehre dann in die" +
                 "App zurück.Denken Sie daran,den Spam-Ordner zu überprüfen.Hast du Probleme beim Einloggen? Kontaktiere uns";
         veriText.setText(text);
        // emailZurueksetzenBtn = findViewById(R.id.button_zurueksetzen);
         emailAnmeldeAendernBtn = findViewById(R.id.button_anmeldemethode);
-        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+
         emailAnmeldeAendernBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,9 +64,11 @@ public class EmailVerification extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(!task.isSuccessful()){
+                            isCancelByUser=true;
                             Toast.makeText(EmailVerification.this, "Ein Fehler ist aufgetreten bitte versuche es nocheinmal", Toast.LENGTH_SHORT).show();
-                            quickLogoutVerficationFail();
+                            quickLogoutVerficationFail("");
                         }else{
+                            isCancelByUser=true;
                             quickLogout();
                         }
                     }
@@ -66,7 +76,32 @@ public class EmailVerification extends AppCompatActivity {
 
             }
         });
+        final Handler handler = new Handler();
+        final int delay = 5000; //milliseconds
 
+        handler.postDelayed(new Runnable(){
+            public void run(){
+
+                if(isCancelByUser){
+                    isCancelByUser=true;
+                    quickLogoutVerficationFail("");
+                }
+                else if(!user.isEmailVerified()){
+                    user.reload();
+                    Toast.makeText(EmailVerification.this, "here", Toast.LENGTH_SHORT).show();
+                    handler.postDelayed(this, delay);
+                }else if (user.isEmailVerified()){
+                    isCancelByUser=true;
+                    quickLogoutVerficationFail(user.getEmail());
+
+
+                }else {
+                    isCancelByUser=true;
+                    quickLogoutVerficationFail("");
+                }
+
+            }
+        }, delay);
     }
 
     public void quickLogout(){
@@ -81,13 +116,20 @@ public class EmailVerification extends AppCompatActivity {
         finish();
     }
 
-    public void quickLogoutVerficationFail(){
+    public void quickLogoutVerficationFail(String email){
 
         FirebaseAuth.getInstance().signOut();
         userLocalStore.clearUserData();
-        Intent intent = new Intent(EmailVerification.this, Anmeldeauswahl.class);
+        Intent intent;
+        if(email.isEmpty()){
+            intent = new Intent(EmailVerification.this, Anmeldeauswahl.class);
+        }else{
+            intent = new Intent(EmailVerification.this, EmailAnmeldung.class);
+            intent.putExtra("email",email);
+        }
         startActivity(intent);
         finish();
+
     }
     public String generateEmailkey(String email){
 
