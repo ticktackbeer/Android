@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.InputType;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -19,7 +18,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.halloworld.DesignV1.Email.EmailAnmeldung;
@@ -125,7 +123,7 @@ public class Anmeldeauswahl extends AppCompatActivity {
         btnElogin = findViewById(R.id.button_Email);
         btnGlogin = findViewById(R.id.button_Google);
         btnFlogin = findViewById(R.id.button_Facebook);
-        quickLogout();
+        Helper.logout(this);
         Glogin();
         facebookLogin();
         EmailLogin();
@@ -229,7 +227,7 @@ public class Anmeldeauswahl extends AppCompatActivity {
             public void onClick(View v) {
                 userLocalStore.storeLogintype(LoginType.google);
                 if (firebaseAuth.getCurrentUser() != null) {
-                    quickLogout();
+                    Helper.logout(Anmeldeauswahl.this);
                 }
                 Intent intent = googleSignInClient.getSignInIntent();
                 startActivityForResult(intent, 100);
@@ -467,7 +465,7 @@ public class Anmeldeauswahl extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 userLocalStore.storeLogintype(LoginType.email);
                 if (firebaseAuth.getCurrentUser() != null) {
-                    quickLogout();
+                    Helper.logout(Anmeldeauswahl.this);
 
                 }
                 Intent intent = new Intent(Anmeldeauswahl.this, EmailAnmeldung.class)
@@ -480,19 +478,6 @@ public class Anmeldeauswahl extends AppCompatActivity {
 
     }
 
-    public void quickLogout(){
-        firebaseAuth = FirebaseAuth.getInstance();
-        googleSignInClient = GoogleSignIn.getClient(Anmeldeauswahl.this, GoogleSignInOptions.DEFAULT_SIGN_IN);
-        googleSignInClient.signOut();
-        firebaseAuth.signOut();
-        userLocalStore.clearUserData();
-        LoginManager.getInstance().logOut();
-
-    }
-
-    public String generateEmailkey(String email){
-        return email.replace(".","&");
-    }
 
     public String SaveUserAndRedirectToHome(int requestCode,FirebaseUser user,LoginType loginType){
 
@@ -512,10 +497,11 @@ public class Anmeldeauswahl extends AppCompatActivity {
                 userLocalStore.storeUserData(person);
                 userLocalStore.setUserLoggedIn(true);
                 try {
-                    FirebaseDatabase.getInstance().getReference().child("User").child(generateEmailkey(user.getEmail())).setValue(person);
+                    FirebaseDatabase.getInstance().getReference().child("User").child(Helper.generateEmailkey(user.getEmail())).setValue(person);
                 }catch (Exception e){
                     showDialogBox(e.getMessage());
                 }
+                FirebaseMessaging.getInstance().subscribeToTopic("saludamigos");
                 if(requestCode==200){
                     user.linkWithCredential(FBAuthCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override

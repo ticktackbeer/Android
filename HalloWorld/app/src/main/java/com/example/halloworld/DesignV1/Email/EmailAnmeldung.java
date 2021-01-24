@@ -3,13 +3,10 @@ package com.example.halloworld.DesignV1.Email;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -18,21 +15,16 @@ import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.halloworld.DesignV1.Anmeldeauswahl;
+import com.example.halloworld.DesignV1.Helper;
 import com.example.halloworld.DesignV1.HomeScreen;
 import com.example.halloworld.Enum.LoginType;
 import com.example.halloworld.Model.User;
 import com.example.halloworld.R;
 import com.example.halloworld.Utility.UserLocalStore;
-import com.facebook.login.LoginManager;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.internal.FlowLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
@@ -41,8 +33,6 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
-
-import org.w3c.dom.Text;
 
 public class EmailAnmeldung extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
@@ -144,10 +134,7 @@ public class EmailAnmeldung extends AppCompatActivity {
             }
         });
     }
-    public String generateEmailkey(String email){
 
-        return email.replace(".","&");
-    }
 
     private void showErrorMessage(String text) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(EmailAnmeldung.this);
@@ -174,11 +161,8 @@ public class EmailAnmeldung extends AppCompatActivity {
                 User person = new User(user.getDisplayName(), user.getEmail(), user.getEmail(), 1, user.getUid(), loginType.toString(),nickname,userTocken);
                 userLocalStore.storeUserData(person);
                 userLocalStore.setUserLoggedIn(true);
-                try {
-                    FirebaseDatabase.getInstance().getReference().child("User").child(generateEmailkey(user.getEmail())).setValue(person);
-                }catch (Exception e){
-                    showErrorMessage(e.getMessage());
-                }
+
+                FirebaseDatabase.getInstance().getReference().child("User").child(Helper.generateEmailkey(user.getEmail())).setValue(person);
 
                 if(!user.isEmailVerified()){
                     Intent intent = new Intent(EmailAnmeldung.this, EmailVerification.class);
@@ -197,14 +181,4 @@ public class EmailAnmeldung extends AppCompatActivity {
         return nickname;
     }
 
-    public void quickLogout(){
-
-        FirebaseAuth.getInstance().signOut();
-        GoogleSignIn.getClient(EmailAnmeldung.this, GoogleSignInOptions.DEFAULT_SIGN_IN).signOut();
-        LoginManager.getInstance().logOut();
-        userLocalStore.clearUserData();
-        Intent intent = new Intent(EmailAnmeldung.this, Anmeldeauswahl.class);
-        startActivity(intent);
-        finish();
-    }
 }

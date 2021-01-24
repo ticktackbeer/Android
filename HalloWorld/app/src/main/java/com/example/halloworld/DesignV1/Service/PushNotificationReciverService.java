@@ -9,8 +9,11 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.RemoteInput;
+
+import com.example.halloworld.DesignV1.Helper;
 import com.example.halloworld.DesignV1.HomeScreen;
 import com.example.halloworld.Model.User;
+import com.example.halloworld.Model.UserToken;
 import com.example.halloworld.R;
 import com.example.halloworld.Utility.UserLocalStore;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -134,8 +137,8 @@ public class PushNotificationReciverService extends FirebaseMessagingService
     private void friendRequestResponse(){
         FirebaseMessaging.getInstance().subscribeToTopic(userReciver.getEmail().replace("@","AT"));
 
-        String senderEmailKey= generateEmailkey(userSender.getEmail());
-        String senderResponseEmailkey=generateEmailkey(userReciver.getEmail());
+        String senderEmailKey= Helper.generateEmailkey(userSender.getEmail());
+        String senderResponseEmailkey=Helper.generateEmailkey(userReciver.getEmail());
 
         FirebaseDatabase.getInstance().getReference("Friend").child(senderEmailKey).child(senderResponseEmailkey).setValue(userReciver.getEmail());
         FirebaseDatabase.getInstance().getReference("Friend").child(senderResponseEmailkey).child(senderEmailKey).setValue(userSender.getEmail());
@@ -195,34 +198,13 @@ public class PushNotificationReciverService extends FirebaseMessagingService
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
-                FirebaseDatabase.getInstance().getReference().child("User").child(generateEmailkey(FirebaseAuth.getInstance().getCurrentUser().getEmail())).setValue(new userToken(task.getResult()));
+                FirebaseDatabase.getInstance().getReference().child("User").child(Helper.generateEmailkey(FirebaseAuth.getInstance().getCurrentUser().getEmail())).setValue(new UserToken(task.getResult()));
                 refreshToken(task.getResult());
             }
         });
     }
 
-    public String generateEmailkey(String email){
-        return email.replace(".","&");
-    }
-
-    public class userToken{
-
-        String usertoken;
-
-        public userToken(String usertoken){
-
-            this.usertoken=usertoken;
-        }
-        public String getUsertoken() {
-            return usertoken;
-        }
-
-        public void setUsertoken(String usertoken) {
-            this.usertoken = usertoken;
-        }
-    }
-
-   private void refreshToken(String tocken){
+    private void refreshToken(String tocken){
         userLocalStore = new UserLocalStore(this);
         User user= userLocalStore.getLoggedInUser();
         user.setUserToken(tocken);

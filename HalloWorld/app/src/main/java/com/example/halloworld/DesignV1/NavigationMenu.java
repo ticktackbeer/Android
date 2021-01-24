@@ -3,7 +3,6 @@ package com.example.halloworld.DesignV1;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,19 +13,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.halloworld.Enum.LoginType;
-import com.example.halloworld.Model.User;
 import com.example.halloworld.PushNotification;
 import com.example.halloworld.R;
 import com.example.halloworld.Utility.UserLocalStore;
-import com.facebook.login.LoginManager;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 public class NavigationMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -77,7 +69,10 @@ public class NavigationMenu extends AppCompatActivity implements NavigationView.
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_ausloggen:
-                quickLogout();
+                Helper.logout(this);
+                Intent intent0 = new Intent(this, Anmeldeauswahl.class);
+                startActivity(intent0);
+                finish();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_pushtest:
@@ -124,39 +119,4 @@ public class NavigationMenu extends AppCompatActivity implements NavigationView.
 
     }
 
-    private void showDialogBox(String text) {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-        dialogBuilder.setMessage(text);
-        dialogBuilder.setPositiveButton("ok", null);
-        dialogBuilder.show();
-    }
-
-    private LoginType getLogedInTyp() {
-        LoginType loginType = LoginType.email;
-        String provider = firebaseAuth.getCurrentUser().getProviderData().get(1).getProviderId();
-        if (provider.contains("facebook")) {
-            loginType = LoginType.facebook;
-        }
-        if (provider.contains("google")) {
-            loginType = LoginType.google;
-            ;
-        }
-        if (provider.contains("email")) {
-            loginType = LoginType.email;
-        }
-        return loginType;
-    }
-
-    public void quickLogout(){
-
-        firebaseAuth = FirebaseAuth.getInstance();
-        googleSignInClient = GoogleSignIn.getClient(activity, GoogleSignInOptions.DEFAULT_SIGN_IN);
-        googleSignInClient.signOut();
-        LoginManager.getInstance().logOut();
-        firebaseAuth.signOut();
-        userLocalStore.clearUserData();
-        Intent intent = new Intent(activity, Anmeldeauswahl.class);
-        startActivity(intent);
-        finish();
-    }
 }

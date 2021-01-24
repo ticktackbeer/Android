@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.halloworld.DesignV1.Anmeldeauswahl;
+import com.example.halloworld.DesignV1.Helper;
 import com.example.halloworld.Enum.LoginType;
 import com.example.halloworld.Model.User;
 import com.example.halloworld.R;
@@ -97,7 +98,7 @@ public class EmailRegistrierung extends AppCompatActivity {
                                     userTocken= task.getResult();
                                     User person = new User(inputName.getText().toString(), inputName.getText().toString(), user.getEmail(), -1, user.getUid(), LoginType.email.toString(),"null",userTocken);
                                     userLocalStore.storeUserData(person );
-                                    FirebaseDatabase.getInstance().getReference("User").child(generateEmailkey(user.getEmail())).setValue(person);
+                                    FirebaseDatabase.getInstance().getReference("User").child(Helper.generateEmailkey(user.getEmail())).setValue(person);
 
                                     user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
@@ -129,10 +130,6 @@ public class EmailRegistrierung extends AppCompatActivity {
                 });
     }
 
-
-    public String generateEmailkey(String email){
-        return email.replace(".","&");
-    }
 
     private void showErrorMessage(String text) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(EmailRegistrierung.this);

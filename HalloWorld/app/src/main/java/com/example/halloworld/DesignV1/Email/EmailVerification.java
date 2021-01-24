@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.halloworld.DesignV1.Anmeldeauswahl;
+import com.example.halloworld.DesignV1.Helper;
 import com.example.halloworld.DesignV1.HomeScreen;
 import com.example.halloworld.R;
 import com.example.halloworld.Utility.UserLocalStore;
@@ -66,10 +67,18 @@ public class EmailVerification extends AppCompatActivity {
                         if(!task.isSuccessful()){
                             isCancelByUser=true;
                             Toast.makeText(EmailVerification.this, "Ein Fehler ist aufgetreten bitte versuche es nocheinmal", Toast.LENGTH_SHORT).show();
-                            quickLogoutVerficationFail("");
+                            Helper.logout(EmailVerification.this);
+                            Intent intent = new Intent(EmailVerification.this, Anmeldeauswahl.class);
+                            startActivity(intent);
+                            finish();
                         }else{
                             isCancelByUser=true;
-                            quickLogout();
+                            FirebaseDatabase.getInstance().getReference("User").child(Helper.generateEmailkey(email)).removeValue();
+                            Helper.logout(EmailVerification.this);
+                            Intent intent = new Intent(EmailVerification.this, Anmeldeauswahl.class);
+                            startActivity(intent);
+                            finish();
+
                         }
                     }
                 });
@@ -84,7 +93,10 @@ public class EmailVerification extends AppCompatActivity {
 
                 if(isCancelByUser){
                     isCancelByUser=true;
-                    quickLogoutVerficationFail("");
+                    Helper.logout(EmailVerification.this);
+                    Intent intent = new Intent(EmailVerification.this, Anmeldeauswahl.class);
+                    startActivity(intent);
+                    finish();
                 }
                 else if(!user.isEmailVerified()){
                     user.reload();
@@ -92,47 +104,22 @@ public class EmailVerification extends AppCompatActivity {
                     handler.postDelayed(this, delay);
                 }else if (user.isEmailVerified()){
                     isCancelByUser=true;
-                    quickLogoutVerficationFail(user.getEmail());
+                    Helper.logout(EmailVerification.this);
+                    Intent intent = new Intent(EmailVerification.this, EmailAnmeldung.class);
+                    intent.putExtra("email",email);
+                    startActivity(intent);
+                    finish();
 
 
                 }else {
                     isCancelByUser=true;
-                    quickLogoutVerficationFail("");
+                    Helper.logout(EmailVerification.this);
+                    Intent intent = new Intent(EmailVerification.this, Anmeldeauswahl.class);
+                    startActivity(intent);
+                    finish();
                 }
 
             }
         }, delay);
-    }
-
-    public void quickLogout(){
-
-        FirebaseDatabase.getInstance().getReference("User").child(generateEmailkey(email)).removeValue();
-        FirebaseAuth.getInstance().signOut();
-        GoogleSignIn.getClient(EmailVerification.this, GoogleSignInOptions.DEFAULT_SIGN_IN).signOut();
-        LoginManager.getInstance().logOut();
-        userLocalStore.clearUserData();
-        Intent intent = new Intent(EmailVerification.this, Anmeldeauswahl.class);
-        startActivity(intent);
-        finish();
-    }
-
-    public void quickLogoutVerficationFail(String email){
-
-        FirebaseAuth.getInstance().signOut();
-        userLocalStore.clearUserData();
-        Intent intent;
-        if(email.isEmpty()){
-            intent = new Intent(EmailVerification.this, Anmeldeauswahl.class);
-        }else{
-            intent = new Intent(EmailVerification.this, EmailAnmeldung.class);
-            intent.putExtra("email",email);
-        }
-        startActivity(intent);
-        finish();
-
-    }
-    public String generateEmailkey(String email){
-
-        return email.replace(".","&");
     }
 }

@@ -1,26 +1,16 @@
 package com.example.halloworld.DesignV1;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.halloworld.Adapter.AdapterClassFriends;
-import com.example.halloworld.Adapter.AdapterClassSearchBar;
-import com.example.halloworld.DesignV1.Service.PushNotificationSenderService;
-import com.example.halloworld.Friends;
-import com.example.halloworld.Model.User;
-import com.example.halloworld.PushNotification;
 import com.example.halloworld.R;
-import com.example.halloworld.SearchBar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -46,7 +36,7 @@ public class FreundesListe extends NavigationMenu implements AdapterClassFriends
         super.setDrawerLayout(this,toolbar,R.id.nav_freundesliste);
 
         FirebaseUser user =FirebaseAuth.getInstance().getCurrentUser();
-        databaseReference= FirebaseDatabase.getInstance().getReference().child("Friend").child(generateEmailkey(user.getEmail()));
+        databaseReference= FirebaseDatabase.getInstance().getReference().child("Friend").child(Helper.generateEmailkey(user.getEmail()));
         recyclerView = findViewById(R.id.rv);
         swipeRefreshLayout= findViewById(R.id.swipeLayout);
 
@@ -130,10 +120,6 @@ public class FreundesListe extends NavigationMenu implements AdapterClassFriends
                 }
             });
         }
-    }
-
-    public String generateEmailkey(String email){
-        return email.replace(".","&");
     }
 
 }
