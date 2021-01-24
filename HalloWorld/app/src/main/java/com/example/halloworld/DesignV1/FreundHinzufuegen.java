@@ -74,9 +74,10 @@ public class FreundHinzufuegen extends NavigationMenu implements AdapterClassSea
                         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                         for (DataSnapshot item: snapshot.getChildren()) {
                             User user = item.getValue(User.class);
-                            userArrayList.add(user);
-                            if(user.getEmail().equals(firebaseUser.getEmail())){
+                            if (user.getEmail().equals(firebaseUser.getEmail())){
                                 myUserInfo=user;
+                            }else{
+                                userArrayList.add(user);
                             }
                         }
                         Log.i("user NIIIIAAAATTTT","Size Liste "+ userArrayList.toString());
@@ -142,9 +143,10 @@ public class FreundHinzufuegen extends NavigationMenu implements AdapterClassSea
                         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                         for (DataSnapshot item: snapshot.getChildren()) {
                             User user = item.getValue(User.class);
-                            userArrayList.add(user);
-                            if(user.getEmail().equals(firebaseUser.getEmail())){
+                            if (user.getEmail().equals(firebaseUser.getEmail())){
                                 myUserInfo=user;
+                            }else{
+                                userArrayList.add(user);
                             }
                         }
                         Log.i("user NIIIIAAAATTTT","Size Liste "+ userArrayList.toString());

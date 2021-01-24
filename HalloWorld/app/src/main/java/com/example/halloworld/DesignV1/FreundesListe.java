@@ -64,10 +64,11 @@ public class FreundesListe extends NavigationMenu implements AdapterClassFriends
                         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                         for (DataSnapshot item: snapshot.getChildren()) {
                             String user = item.getValue().toString();
+                            if(user.equals(firebaseUser.getEmail())){
+                                continue;
+                            }
                             userArrayList.add(user);
-                            /*if(user.getEmail().equals(firebaseUser.getEmail())){
-                                myUserInfo=user;
-                            }*/
+                            
                         }
                         Log.i("user NIIIIAAAATTTT","Size Liste "+ userArrayList.toString());
                         AdapterClassFriends adapterClass = new AdapterClassFriends(userArrayList,FreundesListe.this);
@@ -103,10 +104,10 @@ public class FreundesListe extends NavigationMenu implements AdapterClassFriends
                         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                         for (DataSnapshot item: snapshot.getChildren()) {
                             String user = item.getValue().toString();
+                            if(user.equals(firebaseUser.getEmail())){
+                                continue;
+                            }
                             userArrayList.add(user);
-                            /*if(user.getEmail().equals(firebaseUser.getEmail())){
-                                myUserInfo=user;
-                            }*/
                         }
                         Log.i("user NIIIIAAAATTTT","Size Liste "+ userArrayList.toString());
                         AdapterClassFriends adapterClass = new AdapterClassFriends(userArrayList,FreundesListe.this);

@@ -3,6 +3,9 @@ package com.example.halloworld.DesignV1.Service;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -10,10 +13,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.halloworld.DesignV1.Helper;
 import com.example.halloworld.Enum.NotificationType;
 import com.example.halloworld.Model.User;
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,8 +29,6 @@ public class PushNotificationSenderService {
     User userReciver;
     RequestQueue requestQueue;
     static String URL = "https://fcm.googleapis.com/fcm/send";
-
-
 
     public PushNotificationSenderService(Context context,User userSender, User userReciver) {
         this.context = context;
@@ -47,58 +50,67 @@ public class PushNotificationSenderService {
         newtitel = "Du musst aufholen!";
         newbody = "Dein Buddy " + userSender.getEmail() + " hat etwas getrunken";
 
+        ArrayList<User> friends = Helper.getUserFromFriendsListByEmail(userSender.getEmail());
 
-        JSONObject json = new JSONObject();
-        try {
-
-            json.put("to", "/topics/" + userSender.getEmail().replace("@", "AT"));
-
-            JSONObject dataObjUser = new JSONObject();
-            dataObjUser.put("name", userSender.getName());
-            dataObjUser.put("nickname", userSender.getNickname());
-            dataObjUser.put("password", userSender.getPassword());
-            dataObjUser.put("provider", userSender.getProvider());
-            dataObjUser.put("userName", userSender.getUserName());
-            dataObjUser.put("email", userSender.getEmail());
-            dataObjUser.put("userToken", userSender.getUserToken());
-
-            JSONObject dataObj = new JSONObject();
-            dataObj.put("title", newtitel);
-            dataObj.put("body", newbody);
-            dataObj.put("notificationType", NotificationType.trinkRequest);
-            dataObj.put("userObjectSender",dataObjUser);
-
-            json.put("data", dataObj);
-
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL,
-                    json,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-
-                            Log.i("MUR", "onResponse: ");
-                            Toast.makeText(context, "Push successful", Toast.LENGTH_SHORT).show();
-                        }
-                    }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.i("MUR", "onError: " + error.networkResponse);
-                    Toast.makeText(context, "Push failed", Toast.LENGTH_SHORT).show();
-                }
+        for (User user:friends) {
+            if(user.getUserToken()!= null && user.getUserToken().isEmpty()|| user.getUserToken()==null){
+                continue;
             }
-            ) {
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    Map<String, String> header = new HashMap<>();
-                    header.put("content-type", "application/json");
-                    header.put("authorization", "key=AAAAnVO81tw:APA91bG6c-WsIF4RGITXXodf3JcXthwAavzfu-YmSYu-LdxWa-r9DyvpZrXAKkq04z5IFv8rxcQz1RGECRqbTsFzPQiy7579_1EgmZTbe93RPH41pXjFrWe3Qn6eB9Enz5V6Gr8hZALb");
-                    return header;
+
+            JSONObject json = new JSONObject();
+            try {
+
+                json.put("to",  user.getUserToken());
+
+                JSONObject dataObjUser = new JSONObject();
+                dataObjUser.put("name", userSender.getName());
+                dataObjUser.put("nickname", userSender.getNickname());
+                dataObjUser.put("password", userSender.getPassword());
+                dataObjUser.put("provider", userSender.getProvider());
+                dataObjUser.put("userName", userSender.getUserName());
+                dataObjUser.put("email", userSender.getEmail());
+                dataObjUser.put("userToken", userSender.getUserToken());
+
+                JSONObject dataObj = new JSONObject();
+                dataObj.put("title", newtitel);
+                dataObj.put("body", newbody);
+                dataObj.put("notificationType", NotificationType.trinkRequest);
+                dataObj.put("userObjectSender",dataObjUser);
+
+                json.put("data", dataObj);
+
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL,
+                        json,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+
+                                Log.i("MUR", "onResponse: ");
+                                Toast.makeText(context, "Push successful", Toast.LENGTH_SHORT).show();
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i("MUR", "onError: " + error.networkResponse);
+                        Toast.makeText(context, "Push failed", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            };
-            requestQueue.add(request);
-        } catch (JSONException e) {
-            e.printStackTrace();
+                ) {
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String, String> header = new HashMap<>();
+                        header.put("content-type", "application/json");
+                        header.put("authorization", "key=AAAAnVO81tw:APA91bG6c-WsIF4RGITXXodf3JcXthwAavzfu-YmSYu-LdxWa-r9DyvpZrXAKkq04z5IFv8rxcQz1RGECRqbTsFzPQiy7579_1EgmZTbe93RPH41pXjFrWe3Qn6eB9Enz5V6Gr8hZALb");
+                        return header;
+                    }
+                };
+                requestQueue.add(request);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
         }
+
 
     }
 
@@ -309,4 +321,5 @@ public class PushNotificationSenderService {
         }
 
     }
+
 }
