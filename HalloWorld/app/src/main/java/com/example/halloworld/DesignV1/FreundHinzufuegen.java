@@ -1,18 +1,15 @@
 package com.example.halloworld.DesignV1;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
 import com.example.halloworld.Adapter.AdapterClassSearchBar;
 import com.example.halloworld.DesignV1.Service.PushNotificationSenderService;
 import com.example.halloworld.Model.FriendRequest;
@@ -26,7 +23,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 
 public class FreundHinzufuegen extends NavigationMenu implements AdapterClassSearchBar.SearchbarClickInterface {
@@ -63,6 +59,7 @@ public class FreundHinzufuegen extends NavigationMenu implements AdapterClassSea
 
             }
         });
+
     }
 
     @Override
@@ -126,8 +123,8 @@ public class FreundHinzufuegen extends NavigationMenu implements AdapterClassSea
         friendRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseDatabase.getInstance().getReference().child("FriendRequest").child(generateEmailkey(myUserInfo.getEmail())).child("Gesendet").child(generateEmailkey(user.getEmail())).setValue(new FriendRequest(user.getEmail(),user.getNickname()));
-                FirebaseDatabase.getInstance().getReference().child("FriendRequest").child(generateEmailkey(user.getEmail())).child("Empfangen").child(generateEmailkey(myUserInfo.getEmail())).setValue(new FriendResponse(myUserInfo.getEmail(),myUserInfo.getNickname()));
+                FirebaseDatabase.getInstance().getReference().child("FriendRequest").child(Helper.generateEmailkey(myUserInfo.getEmail())).child("Gesendet").child(Helper.generateEmailkey(user.getEmail())).setValue(new FriendRequest(user.getEmail(),user.getNickname()));
+                FirebaseDatabase.getInstance().getReference().child("FriendRequest").child(Helper.generateEmailkey(user.getEmail())).child("Empfangen").child(Helper.generateEmailkey(myUserInfo.getEmail())).setValue(new FriendResponse(myUserInfo.getEmail(),myUserInfo.getNickname()));
                 new PushNotificationSenderService(FreundHinzufuegen.this,myUserInfo,user).sendFriendRequestNotification();
             }
         });
@@ -182,7 +179,4 @@ public class FreundHinzufuegen extends NavigationMenu implements AdapterClassSea
 
     }
 
-    public String generateEmailkey(String email){
-        return email.replace(".","&");
-    }
 }

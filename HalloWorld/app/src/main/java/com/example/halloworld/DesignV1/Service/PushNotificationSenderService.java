@@ -3,7 +3,6 @@ package com.example.halloworld.DesignV1.Service;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -13,14 +12,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.halloworld.Enum.NotificationType;
 import com.example.halloworld.Model.User;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,13 +65,9 @@ public class PushNotificationSenderService {
             JSONObject dataObj = new JSONObject();
             dataObj.put("title", newtitel);
             dataObj.put("body", newbody);
-            dataObj.put("friendRequest", "false");
             dataObj.put("notificationType", NotificationType.trinkRequest);
-            dataObj.put("senderEmail", userSender.getEmail());
-            dataObj.put("senderToken", userSender.getUserToken());
             dataObj.put("userObjectSender",dataObjUser);
 
-            //json.put("notification", notificationObj);
             json.put("data", dataObj);
 
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL,
@@ -118,19 +107,13 @@ public class PushNotificationSenderService {
         String newtitel;
         String newbody;
         requestQueue = Volley.newRequestQueue(context.getApplicationContext());
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         newtitel = "Neue Freundschaftsanfrage";
         newbody = "Willst du " + userSender.getEmail() + " zu deiner Freundesliste hinzufügen";
 
         JSONObject json = new JSONObject();
         try {
             json.put("to", userReciver.getUserToken());
-            //json.put("to","/topics/"+"test");
-            /*JSONObject notificationObj = new JSONObject();
-            notificationObj.put("title", newtitel);
-            notificationObj.put("body", newbody);
-            notificationObj.put("click_action", "MainActivity");
-            */
+
             JSONObject dataObjUserSender = new JSONObject();
             dataObjUserSender.put("name", userSender.getName());
             dataObjUserSender.put("nickname", userSender.getNickname());
@@ -156,7 +139,6 @@ public class PushNotificationSenderService {
             dataObj.put("userObjectSender",dataObjUserSender);
             dataObj.put("userObjectReciver",dataObjUserResponse);
 
-            //json.put("notification", notificationObj);
             json.put("data", dataObj);
 
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL,
@@ -166,7 +148,7 @@ public class PushNotificationSenderService {
                         public void onResponse(JSONObject response) {
 
                             Log.i("MUR", "onResponse: ");
-                            Toast.makeText(context, "Push successful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Push successful send to "+userReciver.getEmail(), Toast.LENGTH_SHORT).show();
                         }
                     }, new Response.ErrorListener() {
                 @Override
@@ -193,9 +175,9 @@ public class PushNotificationSenderService {
     public void sendFriendRequestResponseNotification() {
         String newtitel;
         String newbody;
-        Log.i("MUR", "notificationType: sendFriendRequestResponseNotification");
+
         requestQueue = Volley.newRequestQueue(context);
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
         newtitel = "Neuer Buddy !!";
         newbody = userSender.getEmail() + " hat deinen Freundschafstantrag angenommen";
 
@@ -228,7 +210,6 @@ public class PushNotificationSenderService {
             dataObj.put("userObjectSender",dataObjUsersender);
             dataObj.put("userObjectReciver",dataObjUserResponse);
 
-            //json.put("notification", notificationObj);
             json.put("data", dataObj);
 
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL,
@@ -292,7 +273,6 @@ public class PushNotificationSenderService {
             JSONObject dataObj = new JSONObject();
             dataObj.put("title", newtitel);
             dataObj.put("body", newbody);
-            dataObj.put("friendRequest", "false");
             dataObj.put("notificationType", NotificationType.trinkReply);
             dataObj.put("userObjectSender",dataObjUsersender);
 
