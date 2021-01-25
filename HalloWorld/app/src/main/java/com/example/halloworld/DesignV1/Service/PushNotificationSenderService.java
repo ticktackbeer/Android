@@ -4,8 +4,6 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -13,7 +11,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.halloworld.DesignV1.Helper;
 import com.example.halloworld.Enum.NotificationType;
 import com.example.halloworld.Model.User;
 import org.json.JSONException;
@@ -43,14 +40,14 @@ public class PushNotificationSenderService {
         requestQueue = Volley.newRequestQueue(context);
     }
 
-    public void sendTrinkNotification() {
+    public void sendTrinkNotification(ArrayList<User> friends) {
         String newtitel;
         String newbody;
         requestQueue = Volley.newRequestQueue(context.getApplicationContext());
         newtitel = "Du musst aufholen!";
         newbody = "Dein Buddy " + userSender.getEmail() + " hat etwas getrunken";
 
-        ArrayList<User> friends = Helper.getUserFromFriendsListByEmail(userSender.getEmail());
+        //ArrayList<User> friends = Helper.getUserFromFriendsListByEmail(userSender.getEmail());
 
         for (User user:friends) {
             if(user.getUserToken()!= null && user.getUserToken().isEmpty()|| user.getUserToken()==null){
@@ -71,11 +68,22 @@ public class PushNotificationSenderService {
                 dataObjUser.put("email", userSender.getEmail());
                 dataObjUser.put("userToken", userSender.getUserToken());
 
+                JSONObject dataObjUserResponse = new JSONObject();
+                dataObjUserResponse.put("name", user.getName());
+                dataObjUserResponse.put("nickname", user.getNickname());
+                dataObjUserResponse.put("password", user.getPassword());
+                dataObjUserResponse.put("provider", user.getProvider());
+                dataObjUserResponse.put("userName", user.getUserName());
+                dataObjUserResponse.put("email", user.getEmail());
+                dataObjUserResponse.put("userToken", user.getUserToken());
+
                 JSONObject dataObj = new JSONObject();
                 dataObj.put("title", newtitel);
                 dataObj.put("body", newbody);
                 dataObj.put("notificationType", NotificationType.trinkRequest);
+                dataObj.put("userWhichShouldReceive",user.getEmail());
                 dataObj.put("userObjectSender",dataObjUser);
+                dataObj.put("userObjectReciver",dataObjUserResponse);
 
                 json.put("data", dataObj);
 
@@ -147,6 +155,7 @@ public class PushNotificationSenderService {
             JSONObject dataObj = new JSONObject();
             dataObj.put("title", newtitel);
             dataObj.put("body", newbody);
+            dataObj.put("userWhichShouldReceive",userReciver.getEmail());
             dataObj.put("notificationType", NotificationType.friendRequest);
             dataObj.put("userObjectSender",dataObjUserSender);
             dataObj.put("userObjectReciver",dataObjUserResponse);
@@ -219,6 +228,7 @@ public class PushNotificationSenderService {
             dataObj.put("title", newtitel);
             dataObj.put("body", newbody);
             dataObj.put("notificationType", NotificationType.friendRequestResponse);
+            dataObj.put("userWhichShouldReceive",userSender.getEmail());
             dataObj.put("userObjectSender",dataObjUsersender);
             dataObj.put("userObjectReciver",dataObjUserResponse);
 
@@ -231,7 +241,7 @@ public class PushNotificationSenderService {
                         public void onResponse(JSONObject response) {
 
                             Log.i("MUR", "onResponse: ");
-                            Toast.makeText(context, "Push successful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Push successful send to "+ userReciver.getEmail(), Toast.LENGTH_SHORT).show();
                         }
                     }, new Response.ErrorListener() {
                 @Override
@@ -286,6 +296,7 @@ public class PushNotificationSenderService {
             dataObj.put("title", newtitel);
             dataObj.put("body", newbody);
             dataObj.put("notificationType", NotificationType.trinkReply);
+            dataObj.put("userWhichShouldReceive", userSender.getEmail());
             dataObj.put("userObjectSender",dataObjUsersender);
 
             json.put("data", dataObj);

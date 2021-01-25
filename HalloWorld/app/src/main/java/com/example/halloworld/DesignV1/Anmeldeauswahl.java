@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.halloworld.DesignV1.Email.EmailAnmeldung;
 import com.example.halloworld.DesignV1.Email.EmailStartScreen;
+import com.example.halloworld.DesignV1.Utility.Helper;
 import com.example.halloworld.Enum.LoginType;
 import com.example.halloworld.Model.User;
 import com.example.halloworld.R;

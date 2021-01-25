@@ -8,10 +8,11 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.example.halloworld.DesignV1.Utility.Helper;
+import com.example.halloworld.DesignV1.Utility.HelperDB;
 import com.example.halloworld.Model.User;
-import com.example.halloworld.PushNotification;
 import com.example.halloworld.R;
-import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class FriendRequestService extends Service {
 
@@ -26,8 +27,13 @@ public class FriendRequestService extends Service {
             if(intent.hasExtra(getString(R.string.NOTIFICATION_ID_KEY_FRIEND_REQUEST))){
                 NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
                 notificationManager.cancel(intent.getIntExtra(getString(R.string.NOTIFICATION_ID_KEY_FRIEND_REQUEST),0));
-
-                FirebaseMessaging.getInstance().subscribeToTopic(userSender.getEmail().replace("@","AT"));
+                // wird nicht mehr über topics gehandelt
+                //FirebaseMessaging.getInstance().subscribeToTopic(userSender.getEmail().replace("@","AT"));
+                // freundschaft wurde bestätigt also muss die anfrage aus der FriendRequest Tabelle
+                HelperDB.removeUserFromFriendRequestList(userSender.getEmail(),userReciver.getEmail());
+                // Anfrage bestätigt jetzt muss in die FriendTabelle geschrieben werden
+                HelperDB.saveUserInFriend(userSender,userReciver);
+                HelperDB.saveUserInFriend(userReciver,userSender);
                 new PushNotificationSenderService(this,userSender,userReciver).sendFriendRequestResponseNotification();
             }
 

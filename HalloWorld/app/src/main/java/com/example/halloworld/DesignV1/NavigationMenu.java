@@ -7,12 +7,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import com.example.halloworld.Enum.LoginType;
+
+import com.example.halloworld.DesignV1.Utility.Helper;
 import com.example.halloworld.PushNotification;
 import com.example.halloworld.R;
 import com.example.halloworld.Utility.UserLocalStore;

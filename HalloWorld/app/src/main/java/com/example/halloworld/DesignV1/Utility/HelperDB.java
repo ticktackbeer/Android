@@ -1,45 +1,34 @@
-package com.example.halloworld.DesignV1;
-
-import android.content.Context;
-import android.content.Intent;
+package com.example.halloworld.DesignV1.Utility;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.halloworld.DesignV1.Interface.FirebaseCallback;
 import com.example.halloworld.Model.User;
-import com.example.halloworld.Utility.UserLocalStore;
-import com.facebook.login.LoginManager;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
-import java.util.List;
 
-public class Helper extends AppCompatActivity {
+public class HelperDB {
     static ArrayList<String> friendsStringArrayList;
     static ArrayList<User> friendsUserArrayList;
-   public static void logout(Context context){
+    public static void removeUserFromFriendRequestList(String userSenderEmail, String userReciverEmail){
 
-        GoogleSignIn.getClient(context, GoogleSignInOptions.DEFAULT_SIGN_IN).signOut();
-        FirebaseAuth.getInstance().signOut();
-        UserLocalStore userLocalStore = new UserLocalStore(context);
-        userLocalStore.clearUserData();
-        LoginManager.getInstance().logOut();
+        FirebaseDatabase.getInstance().getReference().child("FriendRequest").child(Helper.generateEmailkey(userSenderEmail)).child("Gesendet").child(Helper.generateEmailkey(userReciverEmail)).removeValue();
+        FirebaseDatabase.getInstance().getReference().child("FriendRequest").child(Helper.generateEmailkey(userReciverEmail)).child("Empfangen").child(Helper.generateEmailkey(userSenderEmail)).removeValue();
     }
 
-   public static String generateEmailkey(String email){
+    public static void saveUserInFriend(User user, User friend){
 
-       return email.replace(".","&");
+        FirebaseDatabase.getInstance().getReference("Friend").child(Helper.generateEmailkey(user.getEmail())).child(Helper.generateEmailkey(friend.getEmail())).setValue(friend.getEmail());
+
     }
 
-    public static ArrayList<User> getUserFromFriendsListByEmail(String email){
+
+
+    public static void getUserFromFriendsListByEmail(String email, final FirebaseCallback firebaseCallback){
 
         DatabaseReference databaseReferenceFriend= FirebaseDatabase.getInstance().getReference().child("Friend").child(Helper.generateEmailkey(email));
 
@@ -69,7 +58,7 @@ public class Helper extends AppCompatActivity {
                                             }
                                         }
 
-
+                                        firebaseCallback.onCallBackFriendsList(friendsUserArrayList);
                                     }
                                 }
 
@@ -91,6 +80,5 @@ public class Helper extends AppCompatActivity {
                 }
             });
         }
-        return friendsUserArrayList;
     }
 }

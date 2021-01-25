@@ -9,12 +9,17 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 
-import com.example.halloworld.DesignV1.Email.EmailAnmeldung;
-import com.example.halloworld.DesignV1.Email.EmailStartScreen;
 import com.example.halloworld.DesignV1.Service.PushNotificationSenderService;
+import com.example.halloworld.DesignV1.Interface.FirebaseCallback;
+import com.example.halloworld.DesignV1.Utility.Helper;
+import com.example.halloworld.DesignV1.Utility.HelperDB;
+import com.example.halloworld.Model.User;
 import com.example.halloworld.R;
 import com.example.halloworld.Utility.UserLocalStore;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.ArrayList;
 
 public class HomeScreen extends NavigationMenu {
 
@@ -90,7 +95,13 @@ public class HomeScreen extends NavigationMenu {
         trinkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new PushNotificationSenderService(HomeScreen.this,userLocalStore.getLoggedInUser()).sendTrinkNotification();
+                 HelperDB.getUserFromFriendsListByEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail(), new FirebaseCallback() {
+                     @Override
+                     public void onCallBackFriendsList(ArrayList<User> friendList) {
+                         new PushNotificationSenderService(HomeScreen.this,userLocalStore.getLoggedInUser()).sendTrinkNotification(friendList);
+                     }
+                 });
+
             }
         });
     }

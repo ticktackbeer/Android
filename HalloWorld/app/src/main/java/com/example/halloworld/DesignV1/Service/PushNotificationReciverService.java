@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.RemoteInput;
 
-import com.example.halloworld.DesignV1.Helper;
+import com.example.halloworld.DesignV1.Utility.Helper;
 import com.example.halloworld.DesignV1.HomeScreen;
 import com.example.halloworld.Model.User;
 import com.example.halloworld.Model.UserToken;
@@ -19,6 +19,7 @@ import com.example.halloworld.Utility.UserLocalStore;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -36,6 +37,7 @@ public class PushNotificationReciverService extends FirebaseMessagingService
     User userSender;
     User userReciver;
     UserLocalStore userLocalStore;
+    String userWhichShouldReceive;
     NotificationCompat.Builder notificationBuilder;
 
     @Override
@@ -46,6 +48,11 @@ public class PushNotificationReciverService extends FirebaseMessagingService
         title= map.get("title");
         body = map.get("body");
         notificationType =map.get("notificationType");
+        userWhichShouldReceive =  map.get("userWhichShouldReceive");
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(firebaseUser== null || !firebaseUser.getEmail().equals(userWhichShouldReceive)){
+            return;
+        }
 
 
         String userSenderString = map.get("userObjectSender");
@@ -135,13 +142,9 @@ public class PushNotificationReciverService extends FirebaseMessagingService
 
 
     private void friendRequestResponse(){
-        FirebaseMessaging.getInstance().subscribeToTopic(userReciver.getEmail().replace("@","AT"));
+        // Topic wird nicht mehr verwendet
+        //FirebaseMessaging.getInstance().subscribeToTopic(userReciver.getEmail().replace("@","AT"));
 
-        String senderEmailKey= Helper.generateEmailkey(userSender.getEmail());
-        String senderResponseEmailkey=Helper.generateEmailkey(userReciver.getEmail());
-
-        FirebaseDatabase.getInstance().getReference("Friend").child(senderEmailKey).child(senderResponseEmailkey).setValue(userReciver.getEmail());
-        FirebaseDatabase.getInstance().getReference("Friend").child(senderResponseEmailkey).child(senderEmailKey).setValue(userSender.getEmail());
         Intent mainInten = new Intent(this, HomeScreen.class);
         PendingIntent mainPending = PendingIntent.getActivity(this,0,mainInten,0);
         notificationBuilder = new NotificationCompat.Builder(this,"test")
@@ -217,7 +220,8 @@ public class PushNotificationReciverService extends FirebaseMessagingService
             Intent directReplyIntent = new Intent(this, DirectReplyService.class);
 
             directReplyIntent.putExtra(getString(R.string.NOTIFICATION_ID_KEY_TRINK_REQUEST),notificationID)
-                    .putExtra("userSender",userSender);
+                    .putExtra("userSender",userSender)
+                    .putExtra("userReciver",userSender);
             PendingIntent directReplyPendingIntent = PendingIntent.getService(this,4,directReplyIntent,PendingIntent.FLAG_UPDATE_CURRENT);
 
             RemoteInput remoteInput = new RemoteInput.Builder(getString(R.string.NOTIFICATION_ID_KEY_TRINK_REPLY))

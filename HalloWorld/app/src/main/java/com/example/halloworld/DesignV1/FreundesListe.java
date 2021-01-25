@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.halloworld.Adapter.AdapterClassFriends;
+import com.example.halloworld.DesignV1.Utility.Helper;
 import com.example.halloworld.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -68,7 +69,7 @@ public class FreundesListe extends NavigationMenu implements AdapterClassFriends
                                 continue;
                             }
                             userArrayList.add(user);
-                            
+
                         }
                         Log.i("user NIIIIAAAATTTT","Size Liste "+ userArrayList.toString());
                         AdapterClassFriends adapterClass = new AdapterClassFriends(userArrayList,FreundesListe.this);
