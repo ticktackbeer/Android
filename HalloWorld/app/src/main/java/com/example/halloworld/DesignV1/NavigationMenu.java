@@ -63,7 +63,7 @@ public class NavigationMenu extends AppCompatActivity implements NavigationView.
         switch (item.getItemId()) {
             case R.id.nav_karte:
                 if (nav_id != R.id.nav_maps) {
-                    Intent intent = new Intent(this, Karte.class);
+                    Intent intent = new Intent(this, Karte2.class);
                     startActivity(intent);
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
