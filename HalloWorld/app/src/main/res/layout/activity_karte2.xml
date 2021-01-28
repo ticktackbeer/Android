@@ -7,13 +7,25 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".DesignV1.Karte2"
-    android:background="@drawable/background_wood">
+    android:background="@color/black">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
+
+
+        <fragment
+            android:id="@+id/googleKarte"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/toolbar"
+            tools:context=".DesignV1.Karte2" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -23,19 +35,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            />
+            app:titleTextColor="@color/black"
+            android:background="@color/transparent"/>
 
-        <fragment
-            android:id="@+id/googleKarte"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            tools:context=".DesignV1.Karte2" />
-            />
+
+
+
+
+        <!--<com.google.android.material.button.MaterialButton
+            android:id="@+id/button_Navigation"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:backgroundTint="@android:color/holo_orange_dark"
+            android:background="@drawable/ic_add"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:cornerRadius="50dp"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+            app:layout_constraintStart_toStartOf="@+id/toolbar"
+            app:layout_constraintTop_toTopOf="parent" />-->
+        />
 
 <!--        <RelativeLayout-->
 <!--            android:layout_width="match_parent"-->
