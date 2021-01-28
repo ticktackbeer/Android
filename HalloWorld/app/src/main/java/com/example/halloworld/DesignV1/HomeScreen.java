@@ -3,11 +3,15 @@ package com.example.halloworld.DesignV1;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.halloworld.DesignV1.Service.PushNotificationSenderService;
 import com.example.halloworld.DesignV1.Interface.FirebaseCallback;
@@ -27,7 +31,7 @@ public class HomeScreen extends NavigationMenu {
     FloatingActionButton fab_add,fab_edit,fab_image;
     Animation FabOpen,FabClose,FabRClockwise,FabRAntiClockwise;
     boolean isOpen = false;
-    ImageButton trinkBtn;
+    Button trinkBtn;
     UserLocalStore userLocalStore;
 
 
@@ -36,12 +40,14 @@ public class HomeScreen extends NavigationMenu {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+
+        //Button homeBtnBeer = findViewById(R.id.btn_Trinken);
         toolbar= findViewById(R.id.toolbar);
         super.setDrawerLayout(this,toolbar,R.id.nav_home_screen);
 
         userLocalStore = new UserLocalStore(this);
 
-        trinkBtn = findViewById(R.id.imagebtn_Trinken);
+        trinkBtn = findViewById(R.id.btn_Trinken);
 
         // Floating Action Button im HomeScreen
         fab_add=findViewById(R.id.add_btn);
@@ -92,7 +98,7 @@ public class HomeScreen extends NavigationMenu {
         });
 
 
-        trinkBtn.setOnClickListener(new View.OnClickListener() {
+/*        trinkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                  HelperDB.getUserFromFriendsListByEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail(), new FirebaseCallback() {
@@ -103,6 +109,47 @@ public class HomeScreen extends NavigationMenu {
                  });
 
             }
-        });
+        });*/
+    }
+
+    public void startAsyncTask(View v) {
+        ExampleAsyncTask task=new ExampleAsyncTask();
+        task.execute(10);
+
+    }
+    private class ExampleAsyncTask extends AsyncTask<Integer, Integer, String> {
+
+        @Override
+        protected String doInBackground(Integer... integers) {
+            for (int i=0; i<integers[0];i++) {
+                publishProgress((i*100)/integers[0]);
+                try {
+                    Thread.sleep(1000);}
+                catch (InterruptedException e){
+                    e.printStackTrace();}
+
+            }
+
+            return "finished";
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            Toast.makeText(HomeScreen.this, s, Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+
+            trinkBtn.setBackground(getResources().getDrawable(R.drawable.bier_voll));
+        }
     }
 }

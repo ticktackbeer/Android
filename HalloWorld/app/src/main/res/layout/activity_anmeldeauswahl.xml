@@ -16,23 +16,25 @@
         android:text="Anmeldung"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="35sp"
+        android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    // E-Mail
+
     <ImageView
         android:id="@+id/image_Anmeldung"
-        android:layout_width="wrap_content"
-        android:layout_height="250dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/topic_Anmeldung"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topic_Anmeldung"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toEndOf="@+id/topic_Anmeldung"
+        app:layout_constraintTop_toTopOf="@+id/topic_Anmeldung"
         app:srcCompat="@drawable/anstossen" />
-
-
-    //  E-Mail
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_Email"
@@ -52,7 +54,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.75" />
 
-    //  Facebook
+    // Facebook
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_Facebook"
@@ -68,12 +70,12 @@
         android:textColor="@color/white"
         app:cornerRadius="50dp"
         app:layout_constraintBottom_toTopOf="@+id/button_Email"
-        app:layout_constraintEnd_toEndOf="@+id/image_Anmeldung"
-        app:layout_constraintStart_toStartOf="@+id/image_Anmeldung"
+        app:layout_constraintEnd_toEndOf="@+id/button_Google"
+        app:layout_constraintStart_toStartOf="@+id/button_Google"
         app:layout_constraintTop_toBottomOf="@+id/image_Anmeldung"
         app:layout_constraintVertical_bias="1.0" />
 
-    //  Google
+    // Google
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_Google"
@@ -105,6 +107,8 @@
         app:layout_constraintEnd_toEndOf="@+id/button_Email"
         app:layout_constraintStart_toStartOf="@+id/button_Email"
         app:layout_constraintTop_toBottomOf="@+id/button_Email" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -48,20 +48,21 @@
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagebtn_Trinken"
+        app:layout_constraintTop_toBottomOf="@+id/btn_Trinken"
         app:layout_constraintVertical_bias="0.8"
         app:srcCompat="@drawable/ic_add" />
 
 
-    <ImageButton
-        android:id="@+id/imagebtn_Trinken"
+    <Button
+        android:id="@+id/btn_Trinken"
         android:layout_width="164dp"
         android:layout_height="235dp"
+        android:onClick="startAsyncTask"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:srcCompat="@drawable/bier" />
+        android:background="@drawable/bier_leer" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_Getränkleeren"
