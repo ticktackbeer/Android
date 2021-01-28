@@ -2,6 +2,7 @@ package com.example.halloworld.DesignV1;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -43,8 +44,10 @@ public class NavigationMenu extends AppCompatActivity implements NavigationView.
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this.activity, drawerLayout, toolbar,
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close);
+
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+        toggle.getDrawerArrowDrawable().setColor(Color.BLACK);
 
         navigationView.setNavigationItemSelectedListener(this);
         if (nav_id != 0) {
