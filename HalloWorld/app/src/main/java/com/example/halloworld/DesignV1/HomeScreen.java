@@ -3,25 +3,17 @@ package com.example.halloworld.DesignV1;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.halloworld.DesignV1.Service.PushNotificationSenderService;
-import com.example.halloworld.DesignV1.Interface.FirebaseCallback;
-import com.example.halloworld.DesignV1.Utility.Helper;
-import com.example.halloworld.DesignV1.Utility.HelperDB;
-import com.example.halloworld.Model.User;
 import com.example.halloworld.R;
 import com.example.halloworld.Utility.UserLocalStore;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -114,27 +106,36 @@ public class HomeScreen extends NavigationMenu {
 
     public void startAsyncTask(View v) {
         ExampleAsyncTask task=new ExampleAsyncTask();
-        task.execute(10);
+        task.execute(4);
 
     }
     private class ExampleAsyncTask extends AsyncTask<Integer, Integer, String> {
 
         @Override
         protected String doInBackground(Integer... integers) {
+            ArrayList<Integer> picIds= new ArrayList<>();
+            picIds.add(R.drawable.bier_voll);
+            picIds.add(R.drawable.bier_leer);
+            picIds.add(R.drawable.bier_voll);
+            picIds.add(R.drawable.bier_leer);
+
+            ArrayList<Integer> newArray= new ArrayList<>();
+
+
             for (int i=0; i<integers[0];i++) {
-                publishProgress((i*100)/integers[0]);
+                publishProgress(picIds.get(i));
                 try {
-                    Thread.sleep(1000);}
+                    Thread.sleep(1000);
+                }
                 catch (InterruptedException e){
                     e.printStackTrace();}
-
             }
-
             return "finished";
         }
 
         @Override
         protected void onPreExecute() {
+
             super.onPreExecute();
         }
 
@@ -143,13 +144,13 @@ public class HomeScreen extends NavigationMenu {
             super.onPostExecute(s);
 
             Toast.makeText(HomeScreen.this, s, Toast.LENGTH_SHORT).show();
+            trinkBtn.setBackground(getResources().getDrawable(R.drawable.bier_leer));
         }
 
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
-
-            trinkBtn.setBackground(getResources().getDrawable(R.drawable.bier_voll));
+            trinkBtn.setBackground(getResources().getDrawable(values[0]));
         }
     }
 }
