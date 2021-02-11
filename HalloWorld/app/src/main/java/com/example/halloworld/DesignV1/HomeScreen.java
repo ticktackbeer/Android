@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.halloworld.R;
@@ -23,7 +24,7 @@ public class HomeScreen extends NavigationMenu {
     FloatingActionButton fab_add,fab_edit,fab_image;
     Animation FabOpen,FabClose,FabRClockwise,FabRAntiClockwise;
     boolean isOpen = false;
-    Button trinkBtn;
+    ImageView trinkBtn;
     UserLocalStore userLocalStore;
 
 
@@ -106,7 +107,7 @@ public class HomeScreen extends NavigationMenu {
 
     public void startAsyncTask(View v) {
         ExampleAsyncTask task=new ExampleAsyncTask();
-        task.execute(4);
+        task.execute(2);
 
     }
     private class ExampleAsyncTask extends AsyncTask<Integer, Integer, String> {
@@ -114,10 +115,11 @@ public class HomeScreen extends NavigationMenu {
         @Override
         protected String doInBackground(Integer... integers) {
             ArrayList<Integer> picIds= new ArrayList<>();
-            picIds.add(R.drawable.bier_voll);
-            picIds.add(R.drawable.bier_leer);
-            picIds.add(R.drawable.bier_voll);
-            picIds.add(R.drawable.bier_leer);
+            picIds.add(R.drawable.button_probe_halb);
+            picIds.add(R.drawable.button_probe_voll);
+            picIds.add(R.drawable.button_probe_halb);
+
+            //picIds.add(R.drawable.bier_leer);
 
             ArrayList<Integer> newArray= new ArrayList<>();
 
@@ -125,7 +127,13 @@ public class HomeScreen extends NavigationMenu {
             for (int i=0; i<integers[0];i++) {
                 publishProgress(picIds.get(i));
                 try {
-                    Thread.sleep(1000);
+                        if(i<2){
+                            Thread.sleep(1000);
+
+                        }else {
+                            Thread.sleep(5000);
+                        }
+
                 }
                 catch (InterruptedException e){
                     e.printStackTrace();}
@@ -144,7 +152,7 @@ public class HomeScreen extends NavigationMenu {
             super.onPostExecute(s);
 
             Toast.makeText(HomeScreen.this, s, Toast.LENGTH_SHORT).show();
-            trinkBtn.setBackground(getResources().getDrawable(R.drawable.bier_leer));
+            trinkBtn.setBackground(getResources().getDrawable(R.drawable.button_probe_leer));
         }
 
         @Override

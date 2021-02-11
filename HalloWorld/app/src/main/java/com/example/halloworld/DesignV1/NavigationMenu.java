@@ -39,7 +39,7 @@ public class NavigationMenu extends AppCompatActivity implements NavigationView.
         drawerLayout = findViewById(R.id.navigation_layout);
         navigationView = findViewById(R.id.navigation_view);
 
-        toolbar.setTitle("");
+        toolbar.setTitle(toolbar.getTitle());
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this.activity, drawerLayout, toolbar,
                 R.string.navigation_drawer_open,
@@ -47,7 +47,7 @@ public class NavigationMenu extends AppCompatActivity implements NavigationView.
 
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        toggle.getDrawerArrowDrawable().setColor(Color.BLACK);
+        toggle.getDrawerArrowDrawable().setColor(Color.WHITE);
 
         navigationView.setNavigationItemSelectedListener(this);
         if (nav_id != 0) {

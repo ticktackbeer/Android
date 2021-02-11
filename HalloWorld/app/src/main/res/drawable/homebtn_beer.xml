@@ -3,11 +3,11 @@
 
     <item
         android:state_pressed="true"
-        android:drawable="@drawable/bier_voll" />
+        android:drawable="@drawable/button_probe_voll" />
     <item
         android:state_last="true"
         android:drawable="@drawable/bier_voll" />
     <item
-        android:drawable="@drawable/bier_leer"/>
+        android:drawable="@drawable/button_probe_leer"/>
 
 </selector>

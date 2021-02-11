@@ -16,10 +16,10 @@
         android:text="Anmeldung"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="36sp"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/button_Google"
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -27,13 +27,12 @@
 
     <ImageView
         android:id="@+id/image_Anmeldung"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/topic_Anmeldung"
+        app:layout_constraintBottom_toTopOf="@id/button_Google"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.48"
-        app:layout_constraintStart_toEndOf="@+id/topic_Anmeldung"
-        app:layout_constraintTop_toTopOf="@+id/topic_Anmeldung"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topic_Anmeldung"
         app:srcCompat="@drawable/anstossen" />
 
     <com.google.android.material.button.MaterialButton

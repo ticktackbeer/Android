@@ -15,6 +15,32 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/mapstyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+            app:icon="@drawable/ic_mapstyle"
+            app:iconTint="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/googleKarte"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleTextColor="@color/white"
+            android:background="@color/black"
+           />
+
+
+
 
         <fragment
             android:id="@+id/googleKarte"
@@ -24,18 +50,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
             tools:context=".DesignV1.Karte2" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:titleTextColor="@color/black"
-            android:background="@color/transparent"/>
+
 
 
 

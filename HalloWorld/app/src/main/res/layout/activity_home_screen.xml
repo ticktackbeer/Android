@@ -43,17 +43,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
-        android:backgroundTint="@android:color/holo_orange_dark"
+        app:backgroundTint="@color/orange"
         android:clickable="true"
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_Trinken"
-        app:layout_constraintVertical_bias="0.8"
-        app:srcCompat="@drawable/ic_add" />
+        app:layout_constraintVertical_bias="0.802"
+        app:srcCompat="@drawable/ic_add"
+        android:tint="@color/black"/>
 
-
-    <Button
+    <ImageView
         android:id="@+id/btn_Trinken"
         android:layout_width="164dp"
         android:layout_height="235dp"
@@ -62,7 +62,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
-        android:background="@drawable/bier_leer" />
+        android:background="@drawable/button_probe_leer"
+         />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_Getränkleeren"

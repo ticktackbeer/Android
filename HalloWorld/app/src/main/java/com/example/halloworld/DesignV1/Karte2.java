@@ -62,18 +62,33 @@ public class Karte2 extends NavigationMenu implements OnMapReadyCallback {
     private FusedLocationProviderClient mFusedLocationProviderClient;
     //private EditText mSearchText;
 //    private ImageView mGps;
+    Button mapStyle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_karte2);
         toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("karte");
         super.setDrawerLayout(this, toolbar, R.id.nav_karte);
+        mapStyle =findViewById(R.id.mapstyle);
         //mSearchText= findViewById(R.id.input_search);
 //        mGps = findViewById(R.id.ic_gps);
         if (isServiceOK()) {
             getLocationPermission();
         }
+
+        mapStyle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mMap.getMapType()==GoogleMap.MAP_TYPE_SATELLITE){
+                    mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                }else{
+                    mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                }
+
+            }
+        });
     }
 
     private void init(){
@@ -162,7 +177,8 @@ public class Karte2 extends NavigationMenu implements OnMapReadyCallback {
                 return;
             }
             mMap.setMyLocationEnabled(true);
-            //mMap.getUiSettings().setMyLocationButtonEnabled(false);
+            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+//            mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 
             init();
         }
