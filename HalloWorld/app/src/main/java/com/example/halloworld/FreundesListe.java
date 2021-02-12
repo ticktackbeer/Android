@@ -1,4 +1,4 @@
-package com.example.halloworld.DesignV1;
+package com.example.halloworld;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -10,8 +10,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.halloworld.Adapter.AdapterClassFriends;
-import com.example.halloworld.DesignV1.Utility.Helper;
-import com.example.halloworld.R;
+import com.example.halloworld.Utility.Helper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
