@@ -13,37 +13,36 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.HalloWorld.NoActionBar">
-        <activity android:name=".DesignV1.Karte2"></activity>
-        <activity android:name=".DesignV1.FreundHinzufuegenUebersicht" />
-        <activity android:name=".DesignV1.Email.EmailVerification" />
-        <activity android:name=".DesignV1.Email.EmailStartScreen" />
-        <activity android:name=".DesignV1.Email.EmailAnmeldung" />
-        <activity android:name=".DesignV1.Ueber" />
-        <activity android:name=".DesignV1.Profil" />
-        <activity android:name=".DesignV1.Freundschaftsanfragen" />
-        <activity android:name=".DesignV1.Verlauf" />
-        <activity android:name=".DesignV1.Karte" />
-        <activity android:name=".DesignV1.FreundesListe" />
-        <activity android:name=".DesignV1.FreundHinzufuegen" />
-        <activity android:name=".DesignV1.HomeScreen" />
-        <activity android:name=".DesignV1.SplashScreen">
+        <activity android:name=".Karte2"></activity>
+        <activity android:name=".FreundHinzufuegenUebersicht" />
+        <activity android:name=".Email.EmailVerification" />
+        <activity android:name=".Email.EmailStartScreen" />
+        <activity android:name=".Email.EmailAnmeldung" />
+        <activity android:name=".Ueber" />
+        <activity android:name=".Profil" />
+        <activity android:name=".Freundschaftsanfragen" />
+        <activity android:name=".Verlauf" />
+        <activity android:name=".Karte" />
+        <activity android:name=".FreundesListe" />
+        <activity android:name=".FreundHinzufuegen" />
+        <activity android:name=".HomeScreen" />
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DesignV1.Email.EmailRegistrierung" />
-        <activity android:name=".DesignV1.Anmeldeauswahl" />
-        <activity android:name=".DesignV1.Wilkommen" />
-        <activity android:name=".Splash_Screen" />
+        <activity android:name=".Email.EmailRegistrierung" />
+        <activity android:name=".Anmeldeauswahl" />
+        <activity android:name=".Wilkommen" />
 
         <service
-            android:name=".DesignV1.Service.DirectReplyService"
+            android:name=".Service.DirectReplyService"
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name=".DesignV1.Service.FriendRequestService"
+            android:name=".Service.FriendRequestService"
             android:enabled="true"
             android:exported="true" />
 
@@ -80,7 +79,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <service
-            android:name=".DesignV1.Service.PushNotificationReciverService"
+            android:name=".Service.PushNotificationReciverService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

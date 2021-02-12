@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_wood"
-    tools:context=".DesignV1.Email.EmailAnmeldung">
+    tools:context=".Email.EmailAnmeldung">
 
     <TextView
         android:id="@+id/topic_Emailanmeldung"
