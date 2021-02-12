@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_wood"
+    tools:context=".DesignV1.Email.EmailStartScreen">
+
+    <TextView
+        android:id="@+id/topic_EmailVerifikation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="cursive"
+        android:text="Email Verifikation"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="35sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_EmailVerifikation"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topic_EmailVerifikation"
+        app:srcCompat="@drawable/anstossen" />
+
+    <TextView
+        android:id="@+id/EmailVeriText"
+        android:layout_width="@+id/image_EmailVerifikation"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:text="Eine E-Mail wurde an  gesendet.Bitte benutze den Link in der Email, um deine Adresse zu bestätigen.Kehre dann in dieApp zurück.Denken Sie daran,den Spam-Ordner zu überprüfen.Hast du Probleme beim Einloggen? Kontaktiere uns"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/button_zurueksetzen"
+        app:layout_constraintEnd_toEndOf="@+id/image_EmailVerifikation"
+        app:layout_constraintStart_toStartOf="@+id/image_EmailVerifikation"
+        app:layout_constraintTop_toBottomOf="@+id/image_EmailVerifikation" />
+
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/button_zurueksetzen"-->
+<!--        android:layout_width="350sp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="50dp"-->
+<!--        android:backgroundTint="@android:color/holo_orange_dark"-->
+<!--        android:text="Email zurücksetzten"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:textColor="@color/white"-->
+<!--        app:cornerRadius="50dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/EmailVeriText" />-->
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_anmeldemethode"
+        android:layout_width="350sp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/holo_orange_dark"
+        android:text="Anmeldemethode ändern"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:cornerRadius="50dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EmailVeriText"
+        app:layout_constraintVertical_bias="0.75" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

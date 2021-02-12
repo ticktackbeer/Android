@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view" >
+
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home_screen"
+            android:icon="@drawable/ic_home"
+            android:title="Home"
+            />
+
+        <item
+            android:id="@+id/nav_karte"
+            android:icon="@drawable/ic_maps"
+            android:title="Karte"
+            />
+    </group>
+
+    <item android:title="Freunde" >
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_freundhinzufuegen"
+                    android:icon="@drawable/ic_person_add"
+                    android:title="Freund Hinzufügen" />
+                <item
+                    android:id="@+id/nav_freundesliste"
+                    android:icon="@drawable/ic_people"
+                    android:title="Freunde" />
+
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="Profile">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_profil"
+                    android:icon="@drawable/ic_profile"
+                    android:title="Profil" />
+
+                <item
+                    android:id="@+id/nav_ausloggen"
+                    android:icon="@drawable/ic_logut"
+                    android:title="Logout" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="Push Test">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_pushtest"
+                    android:icon="@drawable/ic_profile"
+                    android:title="Notificaton Push" />
+            </group>
+        </menu>
+    </item>
+
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_send"
+                android:title="Send" />
+        </menu>
+    </item>
+</menu>

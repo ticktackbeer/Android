@@ -2,6 +2,7 @@ package com.example.halloworld;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -10,9 +11,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.halloworld.DesignV1.SplashScreen;
 import com.example.halloworld.Enum.LoginType;
 import com.example.halloworld.Model.User;
 import com.example.halloworld.Utility.UserLocalStore;
@@ -24,7 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-public class MainActivity extends DrawerMenu {
+public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
@@ -45,10 +48,10 @@ public class MainActivity extends DrawerMenu {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
-        super.setDrawerLayout(this, toolbar, R.id.nav_home);
         //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         userLocalStore = new UserLocalStore(this);
         logger = AppEventsLogger.newLogger(this);
@@ -115,7 +118,7 @@ public class MainActivity extends DrawerMenu {
 
 
     private void goToLogin() {
-        Intent intent = new Intent(this, Login.class);
+        Intent intent = new Intent(this, SplashScreen.class);
         startActivity(intent);
     }
 
@@ -161,5 +164,7 @@ public class MainActivity extends DrawerMenu {
         }
 
     }
+
+
 
 }

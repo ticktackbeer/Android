@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_wood"
+    tools:context=".DesignV1.Wilkommen">
+
+
+    <TextView
+        android:id="@+id/topic_Willkommen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="cursive"
+        android:text="Willkommen bei Salud Amigos"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="35sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_Willkommen"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topic_Willkommen"
+        app:srcCompat="@drawable/anstossen" />
+
+    <TextView
+        android:id="@+id/text_Info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Auf der nächsten Seite werden wir dich nach deinem Namen fragen. Wir brauchen ihn, um dich mit deinen Amiogs verbinden zu können."
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/button_Fortsetzen"
+        app:layout_constraintEnd_toEndOf="@+id/button_Fortsetzen"
+        app:layout_constraintStart_toStartOf="@+id/button_Fortsetzen"
+        app:layout_constraintTop_toBottomOf="@+id/image_Willkommen" />
+
+    <TextView
+        android:id="@+id/text_AGB"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Indem du auf Fortsetzen drückst, stimmst du unseren Datenschutz und Nutzungsbedingungen zu"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/button_Fortsetzen"
+        app:layout_constraintStart_toStartOf="@+id/button_Fortsetzen"
+        app:layout_constraintTop_toBottomOf="@+id/button_Fortsetzen" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_Fortsetzen"
+        android:layout_width="350sp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/holo_orange_dark"
+        android:text="Fortsetzen"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:cornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.75" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

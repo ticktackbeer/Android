@@ -24,6 +24,7 @@ public class UserLocalStore {
         spEditor.putString("password", user.getPassword());
         spEditor.putString("provider", user.getProvider());
         spEditor.putString("usertoken", user.getUserToken());
+        spEditor.putString("nickname", user.getNickname());
         spEditor.commit();
     }
     public User getLoggedInUser(){

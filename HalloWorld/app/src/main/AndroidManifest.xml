@@ -4,60 +4,53 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <application
         android:allowBackup="true"
-        android:icon="@drawable/bier"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/bier"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/Theme.HalloWorld">
-        <service
-            android:name=".Service.DirectReplyService"
-            android:enabled="true"
-            android:exported="true"></service>
-
-        <activity
-            android:name=".Friends"
-            android:theme="@style/Theme.HalloWorld.NoActionBar" />
-
-        <service
-            android:name=".Service.FriendRequestService"
-            android:enabled="true"
-            android:exported="true" />
-
-        <activity
-            android:name=".SearchBar"
-            android:theme="@style/Theme.HalloWorld.NoActionBar" />
-        <activity
-            android:name=".PushNotification"
-            android:theme="@style/Theme.HalloWorld.NoActionBar" />
-        <activity
-            android:name=".Login"
-            android:theme="@style/Theme.HalloWorld.NoActionBar" />
-        <activity
-            android:name=".MainActivity"
-            android:theme="@style/Theme.HalloWorld.NoActionBar">
+        android:theme="@style/Theme.HalloWorld.NoActionBar">
+        <activity android:name=".DesignV1.Karte2"></activity>
+        <activity android:name=".DesignV1.FreundHinzufuegenUebersicht" />
+        <activity android:name=".DesignV1.Email.EmailVerification" />
+        <activity android:name=".DesignV1.Email.EmailStartScreen" />
+        <activity android:name=".DesignV1.Email.EmailAnmeldung" />
+        <activity android:name=".DesignV1.Ueber" />
+        <activity android:name=".DesignV1.Profil" />
+        <activity android:name=".DesignV1.Freundschaftsanfragen" />
+        <activity android:name=".DesignV1.Verlauf" />
+        <activity android:name=".DesignV1.Karte" />
+        <activity android:name=".DesignV1.FreundesListe" />
+        <activity android:name=".DesignV1.FreundHinzufuegen" />
+        <activity android:name=".DesignV1.HomeScreen" />
+        <activity android:name=".DesignV1.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".GoogleMaps"
-            android:theme="@style/Theme.HalloWorld.NoActionBar" />
-        <activity
-            android:name=".EmailLogin"
-            android:theme="@style/Theme.HalloWorld.NoActionBar" />
-        <activity
-            android:name=".EmailRegistration"
-            android:theme="@style/Theme.HalloWorld.NoActionBar" />
-        <activity android:name=".AddPerson" />
+        <activity android:name=".DesignV1.Email.EmailRegistrierung" />
+        <activity android:name=".DesignV1.Anmeldeauswahl" />
+        <activity android:name=".DesignV1.Wilkommen" />
+        <activity android:name=".Splash_Screen" />
+
+        <service
+            android:name=".DesignV1.Service.DirectReplyService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".DesignV1.Service.FriendRequestService"
+            android:enabled="true"
+            android:exported="true" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
+            android:value="@string/facebook_app_id"
+            />
 
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -81,10 +74,13 @@
             android:value="AIzaSyA64tygSyQjIO19iDlxqj6lalJCRQLLJ2Q" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/bier" />
+            android:resource="@mipmap/ic_launcher" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <service
-            android:name=".Service.MyFirebaseMessagingService"
+            android:name=".DesignV1.Service.PushNotificationReciverService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

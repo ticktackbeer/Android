@@ -6,13 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".SearchBar"
-    tools:openDrawer="start">
+    tools:context=".SearchBar">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/swipeLayout">
+        android:id="@+id/swipeLayoutold">
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -23,13 +22,13 @@
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
+                    android:id="@+id/toolbarold"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:elevation="4dp" />
 
                 <androidx.appcompat.widget.SearchView
-                    android:id="@+id/searchview"
+                    android:id="@+id/searchviewold"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:layout_margin="5dp"
@@ -37,14 +36,14 @@
                     app:queryHint="Search" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv"
+                    android:id="@+id/rvold"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
                 <Button
-                    android:id="@+id/SearchfriendRequestBtn"
+                    android:id="@+id/SearchfriendRequestBtnold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"

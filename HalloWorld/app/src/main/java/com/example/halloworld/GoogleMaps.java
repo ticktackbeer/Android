@@ -22,7 +22,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
-public class GoogleMaps extends DrawerMenu {
+public class GoogleMaps extends AppCompatActivity {
     SupportMapFragment supportMapFragment;
     FusedLocationProviderClient client;
     Toolbar toolbar;
@@ -33,7 +33,6 @@ public class GoogleMaps extends DrawerMenu {
         setContentView(R.layout.activity_google_maps);
         toolbar= findViewById(R.id.toolbar);
         toolbar.setTitle("Karte");
-        super.setDrawerLayout(this,toolbar,R.id.nav_maps);
         supportMapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.google_map);
 

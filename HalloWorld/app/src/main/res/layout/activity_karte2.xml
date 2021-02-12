@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".DesignV1.Karte2"
+    android:background="@color/black">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/mapstyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+            app:icon="@drawable/ic_mapstyle"
+            app:iconTint="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/googleKarte"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleTextColor="@color/white"
+            android:background="@color/black"
+           />
+
+
+
+
+        <fragment
+            android:id="@+id/googleKarte"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            tools:context=".DesignV1.Karte2" />
+
+
+
+
+
+
+
+        <!--<com.google.android.material.button.MaterialButton
+            android:id="@+id/button_Navigation"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:backgroundTint="@android:color/holo_orange_dark"
+            android:background="@drawable/ic_add"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:cornerRadius="50dp"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+            app:layout_constraintStart_toStartOf="@+id/toolbar"
+            app:layout_constraintTop_toTopOf="parent" />-->
+        />
+
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:elevation="10dp"-->
+<!--            android:background="@drawable/white_border"-->
+<!--            android:id="@+id/relLayout"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/toolbar"-->
+<!--            >-->
+
+<!--            <ImageView-->
+<!--                android:layout_width="15dp"-->
+<!--                android:layout_height="15dp"-->
+<!--                android:id="@+id/ic_magnify"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:src="@drawable/ic_magnify"/>-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/input_search"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:background="@null"-->
+<!--                android:layout_toRightOf="@+id/ic_magnify"-->
+<!--                android:hint="Enter Adress, City or Zip Code"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textColorHint="@color/black"-->
+<!--                android:textSize="15dp"-->
+<!--                android:paddingLeft="15dp"-->
+<!--                android:imeOptions="actionSearch"-->
+<!--                />-->
+
+<!--        </RelativeLayout>-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/ic_gps"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginTop="12dp"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            android:src="@drawable/ic_gps"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.924"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/relLayout" />-->
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigation_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/navigation_header"
+        app:menu="@menu/naviagtion_menu" />
+
+</androidx.drawerlayout.widget.DrawerLayout>
