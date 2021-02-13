@@ -11,8 +11,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.halloworld.Interface.FirebaseCallback;
+import com.example.halloworld.Model.User;
+import com.example.halloworld.Service.PushNotificationSenderService;
+import com.example.halloworld.Utility.HelperDB;
 import com.example.halloworld.Utility.UserLocalStore;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -103,7 +108,14 @@ public class HomeScreen extends NavigationMenu {
         });*/
     }
 
+    // xml onClick
     public void startAsyncTask(View v) {
+        HelperDB.getUserFromFriendsListByEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail(), new FirebaseCallback() {
+            @Override
+            public void onCallBackFriendsList(ArrayList<User> friendList) {
+                new PushNotificationSenderService(HomeScreen.this,userLocalStore.getLoggedInUser()).sendTrinkNotification(friendList);
+            }
+        });
         ExampleAsyncTask task=new ExampleAsyncTask();
         task.execute(2);
 
