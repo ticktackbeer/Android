@@ -36,16 +36,23 @@ public class NavigationMenu extends AppCompatActivity implements NavigationView.
         this.nav_id = nav_id;
         drawerLayout = findViewById(R.id.navigation_layout);
         navigationView = findViewById(R.id.navigation_view);
-
-        toolbar.setTitle(toolbar.getTitle());
+        if(R.id.nav_karte==nav_id){
+            toolbar.setTitle(toolbar.getTitle());
+        }else{
+            toolbar.setTitle("");
+        }
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this.activity, drawerLayout, toolbar,
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close);
 
+        if( R.id.nav_karte==nav_id){
+            toggle.getDrawerArrowDrawable().setColor(Color.WHITE);
+        }
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        toggle.getDrawerArrowDrawable().setColor(Color.WHITE);
+
+
 
         navigationView.setNavigationItemSelectedListener(this);
         if (nav_id != 0) {
@@ -63,13 +70,15 @@ public class NavigationMenu extends AppCompatActivity implements NavigationView.
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_karte:
-                if (nav_id != R.id.nav_karte) {
+                nav_id=R.id.nav_karte;
+                if (nav_id == R.id.nav_karte) {
                     Intent intent = new Intent(this, Karte2.class);
                     startActivity(intent);
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_ausloggen:
+                nav_id=R.id.nav_ausloggen;
                 Helper.logout(this);
                 Intent intent0 = new Intent(this, Anmeldeauswahl.class);
                 startActivity(intent0);
@@ -77,28 +86,31 @@ public class NavigationMenu extends AppCompatActivity implements NavigationView.
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_pushtest:
+                nav_id=R.id.nav_pushtest;
                 Intent intent = new Intent(this, HomeScreen.class);
                 startActivity(intent);
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_profil:
+                nav_id=R.id.nav_profil;
                 Intent intent1 = new Intent(this, Profil.class);
                 startActivity(intent1);
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_freundhinzufuegen:
-//                Intent intent2 = new Intent(this, SearchBar.c
-//                lass);
+                nav_id=R.id.nav_freundhinzufuegen;
                 Intent intent2 = new Intent(this, FreundHinzufuegen.class);
                 startActivity(intent2);
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_home_screen:
+                nav_id=R.id.nav_home_screen;
                 Intent intent3 = new Intent(this, HomeScreen.class);
                 startActivity(intent3);
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_freundesliste:
+                nav_id=R.id.nav_freundesliste;
                 Intent intent4 = new Intent(this, FreundesListe.class);
                 startActivity(intent4);
                 drawerLayout.closeDrawer(GravityCompat.START);
