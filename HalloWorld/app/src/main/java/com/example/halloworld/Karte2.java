@@ -161,8 +161,7 @@ public class Karte2 extends NavigationMenu implements OnMapReadyCallback {
                 return;
             }
             mMap.setMyLocationEnabled(true);
-            mMap.getUiSettings().setMyLocationButtonEnabled(false);
-//            mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+            mMap.getUiSettings().setMyLocationButtonEnabled(true);
 
             init();
         }
