@@ -26,7 +26,7 @@
         <activity android:name=".FreundesListe" />
         <activity android:name=".FreundHinzufuegen" />
         <activity android:name=".HomeScreen" />
-        <activity android:name=".SplashScreen">
+        <activity android:name=".SplashScreen" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

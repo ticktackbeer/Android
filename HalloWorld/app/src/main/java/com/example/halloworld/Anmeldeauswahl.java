@@ -237,7 +237,7 @@ public class Anmeldeauswahl extends AppCompatActivity {
     }
 
     private void facebookLogin() {
-        FacebookSdk.sdkInitialize(getApplicationContext());
+       //wird nicht mehr benötigt neues SDK-- FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
         btnFlogin.setOnClickListener(new View.OnClickListener() {
             @Override
