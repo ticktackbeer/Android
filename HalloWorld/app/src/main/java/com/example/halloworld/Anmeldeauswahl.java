@@ -1,9 +1,5 @@
 package com.example.halloworld;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -20,11 +16,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.halloworld.Email.EmailAnmeldung;
 import com.example.halloworld.Email.EmailStartScreen;
-import com.example.halloworld.Utility.Helper;
 import com.example.halloworld.Enum.LoginType;
 import com.example.halloworld.Model.User;
+import com.example.halloworld.Utility.Helper;
 import com.example.halloworld.Utility.UserLocalStore;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -52,8 +54,10 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
@@ -238,6 +242,7 @@ public class Anmeldeauswahl extends AppCompatActivity {
 
     private void facebookLogin() {
        //wird nicht mehr benötigt neues SDK-- FacebookSdk.sdkInitialize(getApplicationContext());
+        FacebookSdk.fullyInitialize();
         callbackManager = CallbackManager.Factory.create();
         btnFlogin.setOnClickListener(new View.OnClickListener() {
             @Override
